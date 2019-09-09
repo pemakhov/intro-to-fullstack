@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Three Column Layout</title>
+  <style media="screen">
+
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+
+    .wrapper {
+      min-height: 100%;
+      margin: 0 auto -100px;
+    }
+
+    .wrapper > * {
+      padding: 10px;
+    }
+
+    .header {
+      background-color: blue;
+    }
+    
+    .footer,
+    .push {
+      height: 100px;
+    }
+
+    .footer {
+      background-color: orange;
+    }
+
+    .column {
+      display: relative;
+      float: left;
+      width: 33.333%;
+    }
+
+    .column-left {
+      background-color: green;
+    }
+
+    .column-center {
+      background-color: yellow;
+    }
+
+    .column-right {
+      background-color: pink;
+    }
+
+    .floats {
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">Header</div>
+    <div class="column column-left">Left</div>
+    <div class="column column-center">Center</div>
+    <div class="column column-right">Right</div>
+    <div class="push"></div>
+  </div>
+  <div class="footer">Footer</div>
+</body>
+</html>

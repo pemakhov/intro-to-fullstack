@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Three Column Layout Using Flexbox</title>
+  <style media="screen">
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+
+    .wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      flex: 1 0 auto;
+    }
+
+    .wrapper > * {
+      padding: 10px;
+    }
+
+    .header {
+      background-color: blue;
+      padding: 20px;
+    }
+
+    div {
+      text-align: center;
+    }
+
+    .column-left {
+      background-color: green;
+      flex-grow: 1;
+    }
+
+    .column-center {
+      background-color: yellow;
+      flex-grow: 2;
+    }
+
+    .column-right {
+      background-color: pink;
+      flex-grow: 1;
+    }
+    
+    .footer {
+      background-color: orange;
+      padding: 20px;
+      flex-shrink: 0;
+    }
+
+    .floats {
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">Header</div>
+  <div class="wrapper">
+    <div class="column column-left">Left</div>
+    <div class="column column-center">Center</div>
+    <div class="column column-right">Right</div>
+  </div>
+  <div class="footer">Footer</div>
+</body>
+</html>
