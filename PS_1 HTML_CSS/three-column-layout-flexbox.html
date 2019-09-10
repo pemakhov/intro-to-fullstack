@@ -22,7 +22,7 @@
 
     .wrapper {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: stretch;
       flex: 1 0 auto;
     }
@@ -32,7 +32,7 @@
     }
 
     .header {
-      background-color: blue;
+      background-color: #54a0fe;
       padding: 20px;
     }
 
@@ -40,23 +40,28 @@
       text-align: center;
     }
 
-    .column-left {
-      background-color: green;
+
+    .column-left,
+    .column-right {
+      background-color: #0abde3;
+      display: flex;
+      flex-direction: column;
       flex-grow: 1;
     }
 
     .column-center {
-      background-color: yellow;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
       flex-grow: 2;
     }
 
-    .column-right {
-      background-color: pink;
-      flex-grow: 1;
+    .column div {
+      text-align: left;
     }
     
     .footer {
-      background-color: orange;
+      background-color: #ff6b6b;
       padding: 20px;
       flex-shrink: 0;
     }
@@ -67,12 +72,25 @@
   </style>
 </head>
 <body>
-  <div class="header">Header</div>
+  <div class="header"><h1>Three column layout</h1></div>
   <div class="wrapper">
-    <div class="column column-left">Left</div>
-    <div class="column column-center">Center</div>
-    <div class="column column-right">Right</div>
+    <div class="column column-left">
+      <h2>Left column</h2>
+      <div>Elit ipsam fugiat perferendis eaque commodi ratione? Aliquid corrupti officiis architecto minus laborum temporibus ad Nulla laborum eveniet recusandae voluptas incidunt Accusamus odio doloremque dignissimos officia dolore. Vitae quas sed!</div>
+    </div>
+    <div class="column column-center">
+      <h2>Center column</h2>
+      <div>Elit voluptatibus earum ipsa a dolore, nesciunt Voluptatem ullam blanditiis voluptatibus eaque repudiandae! Laudantium adipisci tenetur dolore perferendis vel. Inventore veniam illo nemo ipsam accusamus Esse delectus doloribus magnam expedita.</div>
+      <div>Elit voluptatibus earum ipsa a dolore, nesciunt Voluptatem ullam blanditiis voluptatibus eaque repudiandae! Laudantium adipisci tenetur dolore perferendis vel. Inventore veniam illo nemo ipsam accusamus Esse delectus doloribus magnam expedita.</div>
+    </div>
+    <div class="column column-right">
+      <h2>Right column</h2>
+      <div>Dolor iste libero odit praesentium laudantium at Illo facere illo totam facilis veniam quo Nobis distinctio dicta nihil explicabo iure ducimus? Dicta deserunt a itaque voluptatibus culpa. Ipsa blanditiis perspiciatis.</div>
+    </div>
   </div>
-  <div class="footer">Footer</div>
+  <div class="footer">
+    <h2>Footer</h2>
+    <div>Consectetur at repellendus repellat corporis libero omnis Maiores aliquid debitis esse dolore dolorem repudiandae? Illum quibusdam officiis qui incidunt maiores Alias molestiae fugiat sunt obcaecati nulla non Tempora mollitia accusamus.</div>
+  </div>
 </body>
 </html>
