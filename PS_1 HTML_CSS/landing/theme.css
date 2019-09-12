@@ -1,0 +1,25 @@
+html,
+body {
+  display: flex;
+  align: center;
+  margin: 0;
+}
+
+html {
+  background-color: #1abc9c;
+  justify-content: center;
+}
+
+body {
+  flex-direction: column;
+  width: 1280px;
+}
+
+.header {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
