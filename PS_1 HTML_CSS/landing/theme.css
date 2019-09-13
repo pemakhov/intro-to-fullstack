@@ -3,7 +3,8 @@
 html,
 body,
 header,
-footer {
+footer, 
+form {
   display: flex;
   margin: 0;
   padding: 0;
@@ -69,6 +70,27 @@ header {
   margin-left: 8px;
 }
 
+button {
+  margin: 0;
+  background-color: #1abc9c;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.5em;
+  border: 2px solid white;
+  border-radius: 6px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: white;
+  color: #1abc9c;
+}
+
 /*--- Body ---*/
 
 body {
@@ -103,33 +125,13 @@ body {
   margin: 44px 0;
 }
 
-.banner__article button {
-  margin: 0;
-  background-color: #1abc9c;
-  border: none;
-  color: white;
-  padding: 12px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 1.5em;
-  border: 2px solid white;
-  border-radius: 8px;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-}
-
-.banner__article button:hover {
-  background-color: white;
-  color: #1abc9c;
-}
 .content {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   background-color: white;
-  padding: 58px 5% 80px;
+  padding: 58px 5% 64px;
 }
 
 .content__article {
@@ -140,7 +142,7 @@ body {
 
 .content__article__icon {
   display: inline-block;
-  padding: 22px;
+  padding: 21px;
   align: center;
   background: #1abc9c;
   border-radius: 50%;
@@ -154,9 +156,48 @@ body {
 
 .content__article h2 {
   font-size: 1.3em;
+  margin-bottom: 0;
 }
 
 .content__article p {
   text-align: center;
-  line-height: 1.4em;
+  line-height: 1.5em;
+}
+
+/*--- General ---*/
+
+footer {
+  background-color: #16a085;
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  padding: 36px 0;
+}
+
+form {
+  flex-direction: column;
+  width: 600px;
+}
+
+footer h1 {
+  font-size: 2em;
+  margin-bottom: 50px;
+}
+
+input,
+textarea {
+  padding: 5px;
+  margin-bottom: 8px;
+  font-size: 1.2em;
+  color: #999;
+}
+
+footer button {
+  background-color: #16a085;
+  padding: 12px 60px;
+  margin: 60px 0;
+}
+
+footer button:hover {
+  color: #16a085;
 }
