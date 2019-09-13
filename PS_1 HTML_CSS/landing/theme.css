@@ -24,9 +24,9 @@ html {
 
 header {
   background-color: white;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  padding: 4px 0;
+  padding: 4px 8%;
 }
 
 .main-menu ul {
@@ -45,8 +45,12 @@ header {
   display: block;
   text-align: center;
   text-decoration: none;
-  margin: 0 40px;
+  margin-left: 60px;
   color: #2c3e50;
+}
+
+.main-menu ul li a:hover {
+  color: #1abc9c;
 }
 
 .logo {
@@ -69,4 +73,59 @@ header {
 
 body {
   flex-direction: column;
+}
+
+.banner {
+  display: flex;
+  align-items: flex-start;
+}
+
+.banner img {
+  display: block;
+  margin: 60px 11% 50px 19%;
+}
+
+.banner__article {
+  display: block;
+  color: white;
+  margin: 130px 5% 30px 0;
+}
+
+.banner__article h1 {
+  font-weight: 600;
+  margin: 0;
+}
+
+.banner__article p {
+  text-align: justify;
+  font-size: 1.1em;
+  line-height: 1.4em;
+  margin: 44px 0;
+}
+
+.banner__article button {
+  margin: 0;
+  background-color: #1abc9c;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.5em;
+  border: 2px solid white;
+  border-radius: 8px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.banner__article button:hover {
+  background-color: white;
+  color: #1abc9c;
+}
+.article-container {
+  background-color: white;
+  justify-content: space-around;
+  align-items: center;
+  padding: 4px 0;
 }
