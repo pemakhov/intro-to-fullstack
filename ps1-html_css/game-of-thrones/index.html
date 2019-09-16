@@ -4,9 +4,35 @@
   <meta charset="UTF-8">
   <title>Login to Game Of Thrones</title>
   <link rel="stylesheet" type="text/css" href="css/theme.css" >
+  <!-- From https://stackoverflow.com/questions/4797166/set-default-value-of-a-password-input-so-it-can-be-read -->
+  <script type="text/javascript">
+    function makeItPassword() {
+      document.getElementById("passcontainer") .innerHTML = "<input id=\"password\" name=\"password\" type=\"password\"/>";
+      document.getElementById("password").focus();
+    }
+  </script>
 </head>
 <body>
-  <section class="left">world</section>
-  <section class="right"></section>
+  <section class="left"></section>
+  <section class="right">
+    <h1>GAME OF THRONES</h1>
+    <form action="">
+      <h2>Enter your email</h2>
+      <input type="email" value="arya@westeros.com" onfocus="this.value=''">
+      <hr>
+      <h2>Choose secure password</h2>
+      <div class="description">Must be at least 8 characters</div>
+      <span id="passcontainer">
+        <input onfocus="return makeItPassword()" type="text" name="password" value="password">
+      </span>
+      <hr>
+      <input type="checkbox" name="remember-me" value="remember-me">
+      <div class="box">
+      
+      </div>
+      <span class="checkbox-description">Remember me</span><br>
+      <input type="button" value="Sign up">
+    </form>
+  </section>
 </body>
 </html>
