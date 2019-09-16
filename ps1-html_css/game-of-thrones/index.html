@@ -17,6 +17,8 @@
   <section class="right">
     <h1>GAME OF THRONES</h1>
     <form action="">
+      <!-- First page beginning -->
+      <!-- 
       <h2>Enter your email</h2>
       <input type="email" value="arya@westeros.com" onfocus="this.value=''">
       <hr>
@@ -33,6 +35,35 @@
         </div>
       </div>
       <input type="button" value="Sign up">
+      -->
+      <!-- First page end -->
+      <!-- Second page beginning -->
+      <blockquote>
+        <p>You've successfully joined the game.<br>
+        Tell us more about yourself.</p>
+      </blockquote>
+      <h2>Who are you?</h2>
+      <div class="description">Alpha-numeric username</div>
+      <input type="text" name="name" value="arya" onfocus="this.value=''">
+      <hr>
+      <h2>Your Great House</h2>
+      <select id="house" name="house">
+        <option selected="selected">Select House</option>
+        <option value="arryn">Arryn of the Eyrie</option>
+        <option value="baratheon">Baratheon of Storm's End</option>
+        <option value="greyjoy">Greyjoy of Pyke</option>
+        <option value="martell">Martell of Sunspear</option>
+        <option value="lannister">Lannister of Casterly Rock</option>
+        <option value="stark">Stark of Winterfell</option>
+        <option value="targaryen">Targaryen of King's Landing</option>
+        <option value="tully">Tully of Riverrun</option>
+        <option value="tyrell">Tyrell of Highgarden</option>
+      </select>
+      <h2>Your preferences, hobbies, wishes, etc.</h2>
+      <textarea id="hobbies" name="hobbies" cols="30" rows="2">I have a long TOKILL list...</textarea>
+      <hr>
+      <input type="button" value="Save">
+      <!-- Second page end -->
     </form>
   </section>
 </body>
