@@ -12,6 +12,8 @@ body {
   background-repeat: repeat;
   background-color: #555;
   display: flex;
+  font-family: serif, times;
+  font-style: normal;
 }
 
 section {
@@ -39,12 +41,12 @@ section {
   font-family: "game-of-thrones";
   font-style: normal;
   font-weight: 100;
-  src: url("../fonts/game-of-thrones.ttf");
+  src: url("../fonts/game-of-thrones.ttf")  format('truetype');
 }
 
 form {
   width: 62%;
-  margin: 30px 0 0;
+  margin: 70px 0 0;
 }
 
 input[type="email"],
@@ -53,7 +55,8 @@ input[type="text"] {
   border: none;
   background: transparent;
   color: #757575;
-  font-size: 1.2em;
+  font-family: sans-serif;
+  font-size: 1.6em;
   margin: 1em 0 0.5em;
 }
 
@@ -69,17 +72,20 @@ input[type="checkbox"] {
 
 h1 {
   font-family: "game-of-thrones";
-  font-size: 2.3em;
+  font-size: 3em;
   text-align: center;
   margin: 0;
 }
 
 h2 {
   margin: 0;
+  font-size: 1.8em;
 }
 
 .description {
   color: #d3d3d3;
+  font-family: sans-serif;
+  font-size: 1.1em;
 }
 
 hr {
@@ -88,3 +94,109 @@ hr {
   border: none;
   margin-bottom: 2em;
 }
+
+input[type="button"] {
+  display: block;
+  width: 100%;
+  margin: 90px 0 0;
+  height: 3em;
+  background-color: #c0994f;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.5em;
+  font-weight: 900;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+input[type="button"]:hover {
+  background-color: #d3bc8d;
+  color: #111;
+}
+
+/* Checkbox with a custom background color, from the following website:
+https://stackoverflow.com/questions/34388696/how-to-change-the-background-color-on-a-input-checkbox-with-css/34389136 */
+.box {
+  margin: 0;
+}
+.box__element {
+  width: 100%;
+    margin: 15px auto;
+    position: relative;
+    display: block;
+}
+
+.box__element input[type="checkbox"] {
+    width: auto;
+    opacity: 0.00000001;
+    position: absolute;
+    left: 0;
+    margin-left: -20px;
+}
+.box__element label {
+    position: relative;
+}
+.box__element label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0;
+    width: 25px;
+    height: 25px;
+    transition: transform 0.28s ease;
+    border-radius: 3px;
+    border: 2px solid #d3bc8d;
+    background-color: #d3bc8d; 
+}
+.box__element label:after {
+  content: '';
+    display: block;
+    width: 10px;
+    height: 5px;
+    border-bottom: 2px solid #111;
+    border-left: 2px solid #111;
+    -webkit-transform: rotate(-45deg) scale(0);
+    -moz-transform: rotate(-45deg) scale(0);
+    -ms-transform: rotate(-45deg) scale(0);
+    transform: rotate(-45deg) scale(0);
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
+.box__element input[type="checkbox"]:checked ~ label::before {
+    color: #d3bc8d;
+}
+
+.box__element input[type="checkbox"]:checked ~ label::after {
+    -webkit-transform: rotate(-45deg) scale(1);
+    -moz-transform: rotate(-45deg) scale(1);
+    -ms-transform: rotate(-45deg) scale(1);
+    transform: rotate(-45deg) scale(1);
+}
+
+.box__element label {
+    min-height: 34px;
+    display: block;
+    padding-left: 40px;
+    margin-bottom: 0;
+    cursor: pointer;
+    vertical-align: sub;
+    font-family: serif, times;
+    font-size: 1.8em;
+    font-weight: normal;
+}
+.box__element label span {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.box__element input[type="checkbox"]:focus + label::before {
+    outline: 0;
+}
+
+
