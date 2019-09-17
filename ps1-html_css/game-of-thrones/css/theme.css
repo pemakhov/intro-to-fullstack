@@ -16,7 +16,8 @@ body {
   font-style: normal;
 }
 
-section {
+.left,
+.right {
   flex: 1;
   align: center;
 }
@@ -44,59 +45,23 @@ section {
   src: url("../fonts/game-of-thrones.ttf")  format('truetype');
 }
 
-form {
-  width: 62%;
-  margin: 70px 0 0;
-}
-
-input[type="email"],
-input[type="password"],
-input[type="text"] {
-  border: none;
-  background: transparent;
-  color: #757575;
-  font-family: sans-serif;
-  font-size: 1.6em;
-  margin: 1em 0 0.5em;
-}
-
-input[type="checkbox"] {
-  transform: scale(2);
-  margin: 0 0.5em 0 0;
-  background-color: #d3bc8d;
-}
-
-textarea {
-  border: none;
-  background: transparent;
-  color: #757575;
-  font-family: sans-serif;
-  font-size: 1.6em;
-  margin: 1em 0 0.5em;
-  width: 100%;
-}
-
-input:focus,
-textarea:focus {
-  outline: none;
-}
-
 h1 {
   font-family: "game-of-thrones";
-  font-size: 3em;
+  font-size: 2.2em;
   text-align: center;
   margin: 0;
 }
 
 h2 {
   margin: 0;
-  font-size: 1.8em;
+  font-weight: 100;
+  font-size: 1.5em;
 }
 
 .description {
-  color: #d3d3d3;
+  color: #ddd;
   font-family: sans-serif;
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 hr {
@@ -106,19 +71,65 @@ hr {
   margin-bottom: 2em;
 }
 
+form {
+  width: 62%;
+  margin: 3em 0 0;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+textarea,
+select {
+  border: none;
+  background: transparent;
+  color: #757575;
+  font-family: sans-serif;
+  font-size: 1.3em;
+  margin: 0.5em 0;
+}
+
+input[type="checkbox"] {
+  transform: scale(2);
+  margin: 0 0.5em 0 0;
+  background-color: #d3bc8d;
+}
+
+textarea,
+select {
+  width: 100%;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+select {
+  color: #ddd;
+}
+
+select option {
+  background-color: #202020;
+}
+
+select option:focus {
+  background-color: #d3bc8d;
+}
+
 input[type="button"] {
   display: block;
   width: 100%;
-  margin: 90px 0 0;
-  height: 3em;
+  margin: 3em 0 0;
+  height: 2.8em;
   background-color: #c0994f;
   border: none;
   color: white;
   padding: 12px 20px;
   text-align: center;
   text-decoration: none;
-  font-size: 1.5em;
-  font-weight: 900;
+  font-size: 1.3em;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
 }
@@ -130,13 +141,13 @@ input[type="button"]:hover {
 
 blockquote {
   border-left: 3px solid #d3bc8d;
-  margin: 1em 10px 3em 0;
-  padding: 0.5em 20px;
+  margin: 0 10px 3em 0;
+  padding: 0.3em 20px;
 }
 blockquote p {
   display: inline;
-  color: white;
-  font-size: 1.4em;
+  color: #ddd;
+  font-size: 1.1em;
   font-family: sans-serif;
 }
 
@@ -169,8 +180,8 @@ https://stackoverflow.com/questions/34388696/how-to-change-the-background-color-
     left: 0;
     top: 0;
     margin: 0;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     transition: transform 0.28s ease;
     border-radius: 3px;
     border: 2px solid #d3bc8d;
@@ -188,8 +199,8 @@ https://stackoverflow.com/questions/34388696/how-to-change-the-background-color-
     -ms-transform: rotate(-45deg) scale(0);
     transform: rotate(-45deg) scale(0);
     position: absolute;
-    top: 8px;
-    left: 8px;
+    top: 6px;
+    left: 6px;
 }
 .box__element input[type="checkbox"]:checked ~ label::before {
     color: #d3bc8d;
@@ -210,7 +221,7 @@ https://stackoverflow.com/questions/34388696/how-to-change-the-background-color-
     cursor: pointer;
     vertical-align: sub;
     font-family: serif, times;
-    font-size: 1.8em;
+    font-size: 1.5em;
     font-weight: normal;
 }
 .box__element label span {
@@ -222,5 +233,4 @@ https://stackoverflow.com/questions/34388696/how-to-change-the-background-color-
 .box__element input[type="checkbox"]:focus + label::before {
     outline: 0;
 }
-
-
+/* End of the section (checkbox with a custom background color) */
