@@ -6,8 +6,8 @@
   <title>N++ Solutions</title>
 </head>
 <header>
-  <div class='logo'><a href="">N<span>++</span></a></div>
-  <div class='main-menu'>
+  <div class="logo"><a href="">N<span>++</span></a></div>
+  <div class="main-menu">
     <ul>
       <li><a href="#products-section">PRODUCTS</a></li>
       <li><a href="#content-section">ABOUT US</a></li>
@@ -16,70 +16,82 @@
   </div>
 </header>
 <body>
-  <div id="products-section" class='banner'>
+  <div id="products-section" class="banner">
     <img src="img/iphone.png" alt="Fancy phone">
-    <div class='banner__article'>
+    <div class="banner__article">
       <h1>Our awesome app is ready to use!</h1>
       <p>Consectetur temporibus quo et quam excepturi Ex consequuntur quisquam culpa omnis harum Et facere incidunt asperiores aliquid quidem voluptatem Minus eligendi dolore animi qui minus. Voluptatem maxime officiis voluptatem hic maxime.</p>
       <button type="button">Buy now!</button>
     </div>
   </div>
-  <div id="content-section" class='content'>
-    <div class='content__article'>
+  <div id="content-section" class="content">
+    <div class="content__article">
       <div class="content__article__icon">
         <img src="img/code.svg" alt="Code icon" height="42" width="42">
       </div>
       <h2>Web development</h2>
       <p>
-        Elit aspernatur officia obcaecati necessitatibus inventore, ipsum. Tempora quasi sit exercitationem aliquam atque suscipit. Placeat illum voluptatum optio reiciendis quas Corporis quasi rerum provident recusandae quas!
-      </p>
+        Elit aspernatur officia obcaecati necessitatibus inventore, ipsum. Tempora quasi sit exercitationem aliquam atque suscipit. Placeat illum voluptatum optio reiciendis quas Corporis quasi rerum provident recusandae quas!</p>
     </div>
-    <div class='content__article'>
+    <div class="content__article">
       <div class="content__article__icon">
         <img src="img/android.svg" alt="Android icon" height="42" width="42">
       </div>
       <h2>Mobile development</h2>
       <p>
-        Elit aspernatur officia obcaecati necessitatibus inventore, ipsum. Tempora quasi sit exercitationem aliquam atque suscipit. Placeat illum voluptatum optio reiciendis quas Corporis quasi rerum provident recusandae quas!      </p>
+        Elit aspernatur officia obcaecati necessitatibus inventore, ipsum. Tempora quasi sit exercitationem aliquam atque suscipit. Placeat illum voluptatum optio reiciendis quas Corporis quasi rerum provident recusandae quas!</p>
     </div>
-    <div class='content__article'>
+    <div class="content__article">
       <div class="content__article__icon">
         <img src="img/cloud.svg" alt="Cloud icon" height="42" width="42">
       </div>
       <h2>Highload</h2>
       <p>
-        Elit aspernatur officia obcaecati necessitatibus inventore, ipsum. Tempora quasi sit exercitationem aliquam atque suscipit. Placeat illum voluptatum optio reiciendis quas Corporis quasi rerum provident recusandae quas!      </p>
+        Elit aspernatur officia obcaecati necessitatibus inventore, ipsum. Tempora quasi sit exercitationem aliquam atque suscipit. Placeat illum voluptatum optio reiciendis quas Corporis quasi rerum provident recusandae quas!</p>
     </div>
   </div>
   </div>
   </body>
   <footer id="contuct-us-section">
     <h1>Contact us!</h1>
-    <form action="" method='get' id='form'>
-      <input type="text" name='name' onfocus="this.value=''" value='Type here your name, please'>
-      <input type="email" name='email' onfocus="this.value=''" value='Type here your email, please'>
-      <input type="tel" name='phone' onfocus="this.value=''" value='Type here your phone, please'>
+    <form action="" method="get" id="form">
+      <input type="text" name="name" onfocus="this.value=''" value="Type here your name, please">
+      <input type="email" name="email" onfocus="this.value=''" value="Type here your email, please">
+      <input type="tel" name="phone" onfocus="this.value=''" value="Type here your phone, please">
       <textarea name="question" onfocus="this.value=''" cols="30" rows="5">Ask your question.</textarea>
-      <input type="checkbox" name='notbot' value='Not a bot' class="checkbox"><div>I'm not a bot</div>
-      <input type="color" name='colorsample' value='#800080'><div>Please, chose a color.</div>
-      <input type="date" name='date'><div>Please, input your bearth date.</div>
-      <input type="datetime-local" name='date'><div>And again, more precisely, with the time.</div>
-      <input type="file" name='file' class="fileinput">
-      <input type="hidden" name='answer' value="42">
-      <input type="image" src='inputimg.png' value="Image as the submit button" width="60" height="60" class="submitimg">
-      <input type="month" name='month'>
-      <input type="week" name='week'>
-      <input type="time" name='time'>
-      <input type="number" name='number' min="0" max="10" value="7">
-      <input type="password" name='yourpass'><div>Please, input your password.</div>
-      <input type="radio" name='yesorno' value="yes"><div>Yes</div>
-      <input type="radio" name='yesorno' value="no"><div>No</div>
-      <input type="range" name='range' min="0" max="100">
+      <div>
+        <input type="checkbox" name="notbot" value="Not a bot" class="checkbox"><span class="description">I'm not a bot</span>
+      </div>
+      <div>Please, chose a color.</div>
+      <input type="color" name="colorsample" value="#800080">
+      <div>Please, input your birth date.</div>
+      <input type="date" name="date">
+      <div>And again, more precisely, with the time.</div>
+      <input type="datetime-local" name="date">
+      <input type="file" name="file" class="fileinput">
+      <input type="hidden" name="answer" value="42">
+      <div>
+        <input type="image" src="img/inputimg.png" value="Image as the submit button" width="60" height="60" class="submitimg">
+        <span class="description">Each time you press this button, somewhere a little cat dies.</span>
+      </div>
+      <input type="month" name="month">
+      <input type="week" name="week">
+      <input type="time" name="time">
+      <input type="number" name="number" min="0" max="10" value="7">
+      <div>Please, input your password.</div>
+      <input type="password" name="yourpass">
+      <div>What do you prefare?</div>
+      <div>
+        <input type="radio" name="yesorno" value="yes"><span class="description">Checkboxes</span>
+        <input type="radio" name="yesorno" value="no"><span class="description">Radiobuttons</span>
+      </div>
+      <div>Drug this slider left and right, its cool!</div>
+      <input type="range" name="range" min="0" max="100">
       <input type="reset">
       <input type="search" q="googlesearch" value="Type something to search, please" onfocus="this.value=''">
-    <input type='submit'>
+    <input type="submit">
     </form>
-    <button type='submit' form='form' value='Submit'>Send email!</button>
+    <button type="submit" form="form" value="Submit">Send email!</button>
   </div>
 </footer>
 </html>
