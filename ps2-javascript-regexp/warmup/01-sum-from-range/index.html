@@ -7,14 +7,15 @@
   <title></title>
 </head>
 <body>
-  <form onSubmit="return handleClick()" name="magic_sum">
+  <form name="magic_sum_input">
     <h1>Magic Sum</h1>
     <div>The sum of all numbers ending in 2, 3 or 7 in the range</div>
-    <div>from</div>
-    <input type="number" name="first_number">
-    <div>to</div>
-    <input type="number" name="last_number">
-    <input type="submit" value="Go!">
+    <div class="input_caption">from</div>
+    <input type="number" id="first_number">
+    <div class="input_caption">to</div>
+    <input type="number" id="last_number">
+    <input type="button" value="Go!" onClick='handleClick(getElementById("first_number").value, getElementById("last_number").value)'>
+    <div id="magic_sum"></div>
   </form>
 </body>
 </html>
