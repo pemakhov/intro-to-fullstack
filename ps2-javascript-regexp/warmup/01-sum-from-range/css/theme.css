@@ -1,11 +1,15 @@
 :root {
   --bg-color: #2c3e50;
   --normal-color: #bdc3c7;
-  --active-color: #3498db;
+  --hover-color: #3498db;
+  --active-color: #e74c3c;
 }
 
-html,
-body {
+* {
+  font-family: serif, Times;
+}
+
+html {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -50,7 +54,7 @@ input[type="number"] {
 
 input[type="number"]:focus {
   outline: none;
-  border-color: var(--active-color);
+  border-color: var(--hover-color);
 }
 
 input[type="button"] {
@@ -67,9 +71,16 @@ input[type="button"] {
 }
 
 input[type="button"]:hover {
-  background-color: var(--active-color);
+  background-color: var(--hover-color);
+  cursor: pointer;
 }
 
 input[type="button"]:focus {
   outline: none;
+  cursor: pointer;
+}
+
+input[type="button"]:active {
+  background-color: var(--active-color);
+  cursor: pointer;
 }

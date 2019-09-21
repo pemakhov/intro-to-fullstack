@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/theme.css">
+  <script src="js/script.js"></script>
+  <title></title>
+</head>
+<body>
+  <form name="magic_sum_input">
+    <h1>Magic Sum</h1>
+    <div>The sum of all numbers ending in 2, 3 or 7 in the range</div>
+    <div class="input_caption">from</div>
+    <input type="number" id="first_number">
+    <div class="input_caption">to</div>
+    <input type="number" id="last_number">
+    <input type="button" value="Go!" onClick='handleClick(getElementById("first_number").value, getElementById("last_number").value)'>
+    <div id="magic_sum"></div>
+  </form>
+</body>
+</html>
