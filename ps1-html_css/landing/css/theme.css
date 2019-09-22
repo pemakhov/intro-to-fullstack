@@ -89,6 +89,7 @@ button {
 button:hover {
   background-color: white;
   color: #1abc9c;
+  cursor: pointer;
 }
 
 /*--- Body ---*/
@@ -140,18 +141,56 @@ body {
   align-items: center;
 }
 
+@font-face {
+  font-family: "awesome-brands";
+  font-style: normal;
+  font-weight: 100;
+  src: url("../fonts/fa-brands-400.ttf")  format('truetype');
+}
+
+@font-face {
+  font-family: "awesome-solid";
+  font-style: normal;
+  font-weight: 100;
+  src: url("../fonts/fa-solid-900.ttf")  format('truetype');
+}
+
 .content__article__icon {
-  display: inline-block;
-  padding: 21px;
-  align: center;
+  display: flex;
   background: #1abc9c;
   border-radius: 50%;
   font-size: 5px;
+  width: 100px;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
 }
 
-.content__article__icon img {
+.content__article__icon span {
   margin: 0;
   padding: 0;
+  color: white;
+  font-family: system-ui;
+  font-size: 36px;
+  font-weight: 900;
+}
+
+span.android {
+  font-family: "awesome-brands";
+  font-size: 46px;
+}
+
+span.android:before {
+  content: "\f17b";
+}
+
+span.pacman {
+  font-family: "awesome-solid";
+  font-size: 40px;
+}
+
+span.pacman:before {
+  content: "\f6e2";
 }
 
 .content__article h2 {

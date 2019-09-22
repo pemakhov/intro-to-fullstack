@@ -6,12 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Test page</title>
   <style media="screen">
-    body {
-      margin: 0;
-    }
-    
+
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     .column {
@@ -29,25 +28,41 @@
 
     /* --- My changes start here --- */
 
+    section {
+      width: 100%;
+    }
+
     .floats div {
       float: left;
+      width: 33.33%;
     }
 
     .blocks div {
       display: inline-block;
+      margin-left: -4px;
+      width: 33.33%;
+    }
+
+    .blocks div:first-child {
+      margin-left: 0;
     }
 
     .flexbox {
       display: flex;
       flex-flow: row wrap;
+      width: 100%;
+      align-content: stretch;
+    }
+
+    .flexbox div {
+      flex-grow: 1;
     }
 
     .grid {
       display: inline-grid;
-      grid-template-columns: auto auto auto auto;
+      grid-template-columns: auto auto auto;
+      justify-items: stretch;
     }
-    
-    /* --- My changes end here --- */
 
   </style>
 </head>

@@ -4,18 +4,29 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="css/theme.css">
   <script src="js/script.js"></script>
-  <title>Magic Sum</title>
+  <title>Warm-up</title>
 </head>
 <body>
-  <form name="magic_sum_input">
-    <h1>Magic Sum</h1>
-    <div>The sum of all numbers ending in 2, 3 or 7 in the range</div>
+  <form name="form">
+    <h1>Warm up</h1>
+    <div>1) The sum of all numbers ending in 2, 3 or 7 in the range</div>
     <div class="input_caption">from</div>
-    <input type="number" id="first_number">
+    <input type="number" id="first_number" value="1" onfocus="this.value=''">
     <div class="input_caption">to</div>
-    <input type="number" id="last_number">
-    <input type="button" value="Go!" onClick='handleClick(getElementById("first_number").value, getElementById("last_number").value)'>
-    <div id="magic_sum"></div>
+    <input type="number" id="last_number" value="10" onfocus="this.value=''">
+    <input type="button" value="Go!" onClick='putSum(getElementById("first_number").value, getElementById("last_number").value)'>
+    <div id="magic_sum" class="result">...</div>
+    <hr>
+    <div>2) Time processing</div>
+    <div>a. Seconds into hh:mm:ss format</div>
+    <input type="number" id="seconds" value="9999" onfocus="this.value=''">
+    <input type="button" value="Convert!" onClick='convertSeconds(getElementById("seconds").value)'>
+    <div id="formatted_time" class="result">...</div>
+    <div>b. Count seconds. Input time in format hh:mm:ss.</div>
+    <input type="text" id="time" value="22:59:59" onfocus="this.value=''">
+    <input type="button" value="Count!" onClick='putSeconds(getElementById("time").value)'>
+    <div id="counted_seconds" class="result">...</div>
+    <hr>
   </form>
 </body>
 </html>

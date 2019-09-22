@@ -21,7 +21,7 @@ html {
 }
 
 form {
-  margin: 10% auto;
+  margin: 1em auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,11 +37,12 @@ form div {
   padding-right: 1em;
 }
 
-#magic_sum {
+.result {
   margin-right: 1em;
 }
 
-input[type="number"] {
+input[type="number"], 
+input[type="text"] {
   width: 100%;
   margin: 0.5em 0;
   border: 1px solid;
@@ -52,13 +53,14 @@ input[type="number"] {
   color: var(--normal-color);
 }
 
-input[type="number"]:focus {
+input[type="number"]:focus,
+input[type="text"]:focus {
   outline: none;
   border-color: var(--hover-color);
 }
 
 input[type="button"] {
-  width: 4em;
+  width: 6em;
   height: 2em;
   margin: 1em 1em 1em 0;
   font-size: 1.2em;
@@ -82,5 +84,12 @@ input[type="button"]:focus {
 
 input[type="button"]:active {
   background-color: var(--active-color);
+  color: var(--normal-color);
   cursor: pointer;
+}
+
+hr {
+  width: 100%;
+  border: 1px solid var(--normal-color);
+  margin: 2em 0;
 }
