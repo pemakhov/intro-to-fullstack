@@ -1,3 +1,6 @@
+const isNumberPattern = /^[0-9\-]+$/;
+const isTimeHMSPattern = /^\d\d:[0-5]\d:[0-5]\d$/;
+
 /* --- 01 --- */
 /* Calculates the sum of eligible numbers from the range from a to b */
 const calcSum = (a, b) => {
@@ -16,6 +19,10 @@ const calcSum = (a, b) => {
 
 /* Puts the sum of eligible numbers into HTML */
 const putSum = (a, b) => {
+  if (!isNumberPattern.test(a) || !isNumberPattern.test(b)) {
+    document.getElementById('magic_sum').innerHTML = 'The input must be a number';
+    return;
+  }
   let first = parseInt(a, 10);
   let last = parseInt(b, 10);
   /* Replace the numbers if first is bigger than the second */
@@ -46,6 +53,10 @@ const addLeadingZero = (someNumber) => {
 };
 
 const convertSeconds = (totalSeconds) => { 
+  if (!isNumberPattern.test(totalSeconds)) {
+    document.getElementById('formatted_time').innerHTML = 'The input must be a number';
+    return;
+  }
   let seconds = parseInt(totalSeconds, 10);
   let hours = getHours(seconds);
   seconds = substractHours(seconds, hours);
@@ -58,13 +69,11 @@ const convertSeconds = (totalSeconds) => {
 };
 
 // b.
-const timePattern = /\d\d:[0-5]\d:[0-5]\d/;
-
 const countSeconds = (hours, minutes, seconds) => hours * SECONDS_IN_HOUR + minutes
   * SECONDS_IN_MINUTE + seconds;
 
 const putSeconds = (givenTime) => {
-  if (!timePattern.test(givenTime)) {
+  if (!isTimeHMSPattern.test(givenTime)) {
     document.getElementById('counted_seconds').innerHTML = 'Input doesn\'t comply with the pattern';
     return;
   }
