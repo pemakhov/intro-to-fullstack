@@ -175,6 +175,15 @@ body {
   font-weight: 900;
 }
 
+span.code_icon {
+  font-family: "awesome-solid";
+  font-size: 46px;
+}
+
+span.code_icon:before {
+  content: "\f121";
+}
+
 span.android {
   font-family: "awesome-brands";
   font-size: 46px;
@@ -184,13 +193,13 @@ span.android:before {
   content: "\f17b";
 }
 
-span.pacman {
+span.cloud {
   font-family: "awesome-solid";
   font-size: 40px;
 }
 
-span.pacman:before {
-  content: "\f6e2";
+span.cloud:before {
+  content: "\f0c2";
 }
 
 .content__article h2 {
