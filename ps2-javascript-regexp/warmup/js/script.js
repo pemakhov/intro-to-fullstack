@@ -1,3 +1,9 @@
+const SECONDS_IN_MINUTE = 60;
+const SECONDS_IN_HOUR = 3600;
+const MINUTES_IN_HOUR = 60;
+const HOURS_IN_DAY = 24;
+const DAYS_IN_MONTH = 365;
+
 const isNumberPattern = /^[0-9\-]+$/;
 const isTimeHMSPattern = /^\d\d:[0-5]\d:[0-5]\d$/;
 
@@ -38,9 +44,6 @@ const putSum = (a, b) => {
 
 /* --- 02 --- */
 // a.
-const SECONDS_IN_MINUTE = 60;
-const SECONDS_IN_HOUR = 3600;
-
 const getHours = (seconds) => Math.floor(seconds / SECONDS_IN_HOUR);
 const substractHours = (seconds, hours) => seconds - (hours * SECONDS_IN_HOUR);
 const getMinutes = (seconds) => Math.floor(seconds / SECONDS_IN_MINUTE);
