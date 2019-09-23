@@ -1,10 +1,12 @@
+const MILLISECONDS_IN_SECOND = 1000;
 const SECONDS_IN_MINUTE = 60;
 const SECONDS_IN_HOUR = 3600;
 const MINUTES_IN_HOUR = 60;
 const HOURS_IN_DAY = 24;
-const DAYS_IN_MONTH = 365;
+const DAYS_IN_MONTH = 30.44;
+const MONTHS_IN_YEAR = 12;
 
-const isNumberPattern = /^[0-9\-]+$/;
+const isNumberPattern = /^[0-9-]+$/;
 const isTimeHMSPattern = /^\d\d:[0-5]\d:[0-5]\d$/;
 
 /* --- 01 --- */
@@ -87,7 +89,20 @@ const putSeconds = (givenTime) => {
   document.getElementById('counted_seconds').innerHTML = countSeconds(hours, minutes, seconds);
 };
 /* --- 03 --- */
-const putTimePeriod = (firstDate, secondDate) => {
-  console.log(firstDate);
-  console.log(secondDate);
+const secondsInDay = SECONDS_IN_HOUR * HOURS_IN_DAY;
+const secondsInMonth = secondsInDay * DAYS_IN_MONTH;
+const secondsInYear = secondsInMonth * MONTHS_IN_YEAR;
+
+const getNomberOfPeriods = (totalSeconds, secondsInPeriod) =>  Math.floor(totalSeconds / secondsInPeriod);
+const extractPeriod = (totalSeconds, nomberOfPeriods, secondsInPeriod) => totalSeconds - nomberOfPeriods * secondsInPeriod;
+
+const putTimePeriod = (d1, d2) => {
+  const firstDate = new Date(d1);
+  const secondDate = new Date(d2);
+  // Time period in seconds
+  const totalSeconds = Math.abs(firstDate - secondDate) / MILLISECONDS_IN_SECOND;
+  const resultYears = getNomberOfPeriods(totalSeconds, secondsInYear);
+  let leftSeconds = extractPeriod(totalSeconds, resultYears, secondsInYear);
+  const resultMonths = getNomberOfPeriods(leftSeconds, secondsInMonth);
+  leftSeconds = extractPeriod(leftSeconds, resultMonths, secondsInMonth);
 };
