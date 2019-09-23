@@ -27,6 +27,14 @@
     <input type="button" value="Count!" onClick='putSeconds(getElementById("time").value)'>
     <div id="counted_seconds" class="result">...</div>
     <hr>
+    <div>3) Period of time between</div>
+    <input type="datetime-local" id="date_time_0">
+    <div class="input_caption">and</div>
+    <input type="datetime-local" id="date_time_1">
+    <input type="button" value="Go!" onClick='putTimePeriod(
+    getElementById("date_time_0").value, getElementById("date_time_1").value)'>
+    <div id="time_between_dates" class="result">...</div>
+    <hr>
   </form>
 </body>
 </html>

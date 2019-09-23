@@ -84,3 +84,7 @@ const putSeconds = (givenTime) => {
   document.getElementById('counted_seconds').innerHTML = countSeconds(hours, minutes, seconds);
 };
 /* --- 03 --- */
+const putTimePeriod = (firstDate, secondDate) => {
+  console.log(firstDate);
+  console.log(secondDate);
+};

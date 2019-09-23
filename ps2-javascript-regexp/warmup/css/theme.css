@@ -38,11 +38,12 @@ form div {
 }
 
 .result {
-  margin-right: 1em;
+  margin: 0 1em 0.5em 0;
 }
 
 input[type="number"], 
-input[type="text"] {
+input[type="text"],
+input[type="datetime-local"] {
   width: 100%;
   margin: 0.5em 0;
   border: 1px solid;
@@ -54,7 +55,8 @@ input[type="text"] {
 }
 
 input[type="number"]:focus,
-input[type="text"]:focus {
+input[type="text"]:focus,
+input[type="datetime-local"]:focus {
   outline: none;
   border-color: var(--hover-color);
 }
