@@ -8,6 +8,7 @@ const MONTHS_IN_YEAR = 12;
 
 const isNumberPattern = /^[0-9-]+$/;
 const isTimeHMSPattern = /^\d\d:[0-5]\d:[0-5]\d$/;
+const isValidDatePattern = /^(\d{4})-\d\d-\d\dT\d\d:\d\d(:\d\d$|$)/
 
 /* --- 01 --- */
 /* Calculates the sum of eligible numbers from the range from a to b */
@@ -93,17 +94,19 @@ const secondsInDay = SECONDS_IN_HOUR * HOURS_IN_DAY;
 const secondsInMonth = secondsInDay * DAYS_IN_MONTH;
 const secondsInYear = secondsInMonth * MONTHS_IN_YEAR;
 
-const getNomberOfPeriods = (totalSeconds, secondsInPeriod) =>  Math.floor(totalSeconds / secondsInPeriod);
+const getNomberOfPeriods = (totalSeconds, secondsInPeriod) => Math.floor(totalSeconds / secondsInPeriod);
 const extractPeriod = (totalSeconds, nomberOfPeriods, secondsInPeriod) => totalSeconds - nomberOfPeriods * secondsInPeriod;
 
 const putTimePeriod = (d1, d2) => {
-  console.log(d1);
-  console.log(d2);
+  if (!isValidDatePattern.test(d1) || !isValidDatePattern.test(d1)) {
+    document.getElementById('time_between_dates').innerHTML = 'Invalid date(s).';
+    return;
+  }
+  console.log(isValidDatePattern.test(d1));
+  console.log(isValidDatePattern.test(d2));
   const firstDate = new Date(d1);
   const secondDate = new Date(d2);
-  console.log(firstDate);
-  console.log(secondDate);
-  // Time period in seconds
+  // The whole time period in seconds
   const totalSeconds = Math.abs(firstDate - secondDate) / MILLISECONDS_IN_SECOND;
   const resultYears = getNomberOfPeriods(totalSeconds, secondsInYear);
   let leftSeconds = extractPeriod(totalSeconds, resultYears, secondsInYear);
