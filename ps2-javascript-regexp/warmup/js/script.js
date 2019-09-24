@@ -1,14 +1,14 @@
 const MILLISECONDS_IN_SECOND = 1000;
 const SECONDS_IN_MINUTE = 60;
 const SECONDS_IN_HOUR = 3600;
-const MINUTES_IN_HOUR = 60;
 const HOURS_IN_DAY = 24;
 const DAYS_IN_MONTH = 30.44;
 const MONTHS_IN_YEAR = 12;
 
 const isNumberPattern = /^[0-9-]+$/;
 const isTimeHMSPattern = /^\d\d:[0-5]\d:[0-5]\d$/;
-const isValidDatePattern = /^(\d{4})-\d\d-\d\dT\d\d:\d\d(:\d\d$|$)/
+const isValidDatePattern = /^(\d{4})-\d\d-\d\dT\d\d:\d\d(:\d\d$|$)/;
+const isBoardDimensionsPattern = /^\d+x\d+$/;
 
 /* --- 01 --- */
 /* Calculates the sum of eligible numbers from the range from a to b */
@@ -94,16 +94,16 @@ const secondsInDay = SECONDS_IN_HOUR * HOURS_IN_DAY;
 const secondsInMonth = secondsInDay * DAYS_IN_MONTH;
 const secondsInYear = secondsInMonth * MONTHS_IN_YEAR;
 
-const getNomberOfPeriods = (totalSeconds, secondsInPeriod) => Math.floor(totalSeconds / secondsInPeriod);
-const extractPeriod = (totalSeconds, nomberOfPeriods, secondsInPeriod) => totalSeconds - nomberOfPeriods * secondsInPeriod;
+const getNomberOfPeriods = (totalSeconds, secondsInPeriod) => Math.floor(totalSeconds
+  / secondsInPeriod);
+const extractPeriod = (totalSeconds, nomberOfPeriods, secondsInPeriod) => totalSeconds
+  - nomberOfPeriods * secondsInPeriod;
 
 const putTimePeriod = (d1, d2) => {
   if (!isValidDatePattern.test(d1) || !isValidDatePattern.test(d1)) {
-    document.getElementById('time_between_dates').innerHTML = 'Invalid date(s).';
+    document.getElementById('time_between_dates').innerHTML = 'Invalid date(s)';
     return;
   }
-  console.log(isValidDatePattern.test(d1));
-  console.log(isValidDatePattern.test(d2));
   const firstDate = new Date(d1);
   const secondDate = new Date(d2);
   // The whole time period in seconds
@@ -119,7 +119,49 @@ const putTimePeriod = (d1, d2) => {
   const resultMinutes = getNomberOfPeriods(leftSeconds, SECONDS_IN_MINUTE);
   leftSeconds = extractPeriod(leftSeconds, resultMinutes, SECONDS_IN_MINUTE);
   leftSeconds = Math.round(leftSeconds);
-  document.getElementById('time_between_dates').innerHTML =
-  `${resultYears} year(s), ${resultMonths} month(s), ${resultDays} day(s), 
-  ${resultHours} hour(s), ${resultMinutes} minute(s), ${leftSeconds} second(s).`;
+  document.getElementById('time_between_dates').innerHTML = `${resultYears} year(s), 
+  ${resultMonths} month(s), ${resultDays} day(s), 
+  ${resultHours} hour(s), ${resultMinutes} minute(s), ${leftSeconds} second(s)`;
+};
+/* --- 04 --- */
+const boardHTML = ['<div class="board">', '</div>'];
+const rowHTML = ['<div class="board__row">', '</div>'];
+const darkCellHTML = '<div class="board__cell"></div>';
+const lightCellHTML = '<div class="board__cell board__cell--light"></div>';
+
+const constructRow = (width, odity) => {
+  let row = rowHTML[0];
+  let isOdd = odity;
+  for (let i = 0; i < width; i += 1) {
+    if (isOdd) {
+      row = row.concat(lightCellHTML);
+    } else {
+      row = row.concat(darkCellHTML);
+    }
+    isOdd = !isOdd;
+  }
+  row = row.concat(rowHTML[1]);
+  return row;
+};
+
+const constructBoard = (width, height) => {
+  let board = boardHTML[0];
+  let isOdd = true;
+  for (let i = 0; i < height; i += 1) {
+    board = board.concat(constructRow(width, isOdd));
+    isOdd = !isOdd;
+  }
+  board = board.concat(boardHTML[1]);
+  return board;
+};
+
+const drawBoard = (dimensions) => {
+  if (!isBoardDimensionsPattern.test(dimensions)) {
+    document.getElementById('chess_board').innerHTML = 'Invalid board dimensions';
+    return;
+  }
+  const dimensionsArray = dimensions.split('x');
+  const width = parseInt(dimensionsArray[0], 10);
+  const height = parseInt(dimensionsArray[1], 10);
+  document.getElementById('chess_board').innerHTML = constructBoard(width, height);
 };

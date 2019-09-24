@@ -95,3 +95,31 @@ hr {
   border: 1px solid var(--normal-color);
   margin: 2em 0;
 }
+
+/* Chess board style */
+
+.board,
+.board__row,
+.board__cell {
+  margin: 0;
+  padding: 0;
+}
+
+.board {
+  border: 1px solid var(--normal-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.board__row {
+  display: flex;
+}
+
+.board__cell {
+  width: 20px;
+  height: 20px;
+}
+
+.board__cell--light {
+  background-color: var(--normal-color);
+}
