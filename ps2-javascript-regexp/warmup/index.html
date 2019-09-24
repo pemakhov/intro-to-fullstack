@@ -35,6 +35,12 @@
     getElementById("date_time_0").value, getElementById("date_time_1").value)'>
     <div id="time_between_dates" class="result">...</div>
     <hr>
+    <div>4) Chess board</div>
+    <div>Input the dimensions of a board in format "8x8"</div>
+    <input type="text" id="board_dimensions" value="8x8" onfocus="this.value=''">
+    <input type="button" value="Draw!" onClick='drawBoard(getElementById("board_dimensions").value)'>
+    <div id="chess_board" class="result"></div>
+    <hr>
   </form>
 </body>
 </html>
