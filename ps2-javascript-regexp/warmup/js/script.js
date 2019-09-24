@@ -97,12 +97,26 @@ const getNomberOfPeriods = (totalSeconds, secondsInPeriod) =>  Math.floor(totalS
 const extractPeriod = (totalSeconds, nomberOfPeriods, secondsInPeriod) => totalSeconds - nomberOfPeriods * secondsInPeriod;
 
 const putTimePeriod = (d1, d2) => {
+  console.log(d1);
+  console.log(d2);
   const firstDate = new Date(d1);
   const secondDate = new Date(d2);
+  console.log(firstDate);
+  console.log(secondDate);
   // Time period in seconds
   const totalSeconds = Math.abs(firstDate - secondDate) / MILLISECONDS_IN_SECOND;
   const resultYears = getNomberOfPeriods(totalSeconds, secondsInYear);
   let leftSeconds = extractPeriod(totalSeconds, resultYears, secondsInYear);
   const resultMonths = getNomberOfPeriods(leftSeconds, secondsInMonth);
   leftSeconds = extractPeriod(leftSeconds, resultMonths, secondsInMonth);
+  const resultDays = getNomberOfPeriods(leftSeconds, secondsInDay);
+  leftSeconds = extractPeriod(leftSeconds, resultDays, secondsInDay);
+  const resultHours = getNomberOfPeriods(leftSeconds, SECONDS_IN_HOUR);
+  leftSeconds = extractPeriod(leftSeconds, resultHours, SECONDS_IN_HOUR);
+  const resultMinutes = getNomberOfPeriods(leftSeconds, SECONDS_IN_MINUTE);
+  leftSeconds = extractPeriod(leftSeconds, resultMinutes, SECONDS_IN_MINUTE);
+  leftSeconds = Math.round(leftSeconds);
+  document.getElementById('time_between_dates').innerHTML =
+  `${resultYears} year(s), ${resultMonths} month(s), ${resultDays} day(s), 
+  ${resultHours} hour(s), ${resultMinutes} minute(s), ${leftSeconds} second(s).`;
 };
