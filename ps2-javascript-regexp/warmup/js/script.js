@@ -9,8 +9,8 @@ const isNumberPattern = /^[0-9-]+$/;
 const isTimeHMSPattern = /^\d\d:[0-5]\d:[0-5]\d$/;
 const isValidDatePattern = /^(\d{4})-\d\d-\d\dT\d\d:\d\d(:\d\d$|$)/;
 const isBoardDimensionsPattern = /^\d+x\d+$/;
-const isURLPattern = /((http|https):\/\/)((www(?=\.)).|)[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[a-zA-z-]+(\/[a-zA-Z-._~:\/?#\[\]@!$&'\(\)*+,;=]+)/;
-const isIPPattern = /((25[0-5]|1\d\d|\d\d|\d):){3}(25[0-5]|1\d\d|\d\d|\d)(,|$)/;
+const isURLPattern = /((http|https):\/\/)((www(?=\.)).|)[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[a-zA-z-]+([a-zA-Z-._~:\/?#\[\]@!$&'\(\)*+;=]+)(?=(,|\s|$))/;
+const isIPPattern = /(((2[0-5][0-5])|1\d\d|\d\d|\d):){3}(2[0-5][0-5]|1\d\d|\d\d|\d)(,|$|\s)/;
 
 const matchPattern = (matchingWord, pattern) => pattern.test(matchingWord);
 
@@ -172,18 +172,16 @@ const drawBoard = (dimensions) => {
 
 /* --- 04 --- */
 const makeLink = (source) => {
-  let link = source.trim();
+  const link = source.trim();
   if (matchPattern(link, isURLPattern) || matchPattern(link, isIPPattern)) {
-    console.log(matched);
-    return `<a href='${link}>${link}</a> '`;
+    return `<a href="${link}" target="_blank">${link}</a>, `;
   }
   return '';
-}
+};
 
 const processURLAndIP = (linksList) => {
   let data = linksList.split(',');
-  data = data.forEach((link) => makeLink(link));
-  console.log(data);
-  const result = data.reduce((accumulator, link) => accumulator + link, 0);
-  document.getElementById('list-of-url-and-ip').innerHTML = result;
+  data = data.map((link) => makeLink(link));
+  const result = data.reduce((accumulator, link) => accumulator + link);
+  document.getElementById('list-of-url-and-ip').innerHTML = result.substring(0, result.length - 2);
 };
