@@ -9,6 +9,10 @@ const isNumberPattern = /^[0-9-]+$/;
 const isTimeHMSPattern = /^\d\d:[0-5]\d:[0-5]\d$/;
 const isValidDatePattern = /^(\d{4})-\d\d-\d\dT\d\d:\d\d(:\d\d$|$)/;
 const isBoardDimensionsPattern = /^\d+x\d+$/;
+const isURLPattern = /((http|https):\/\/)((www(?=\.)).|)[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[a-zA-z-]+(\/[a-zA-Z-._~:\/?#\[\]@!$&'\(\)*+,;=]+)/;
+const isIPPattern = /((25[0-5]|1\d\d|\d\d|\d):){3}(25[0-5]|1\d\d|\d\d|\d)(,|$)/;
+
+const matchPattern = (matchingWord, pattern) => pattern.test(matchingWord);
 
 /* --- 01 --- */
 /* Calculates the sum of eligible numbers from the range from a to b */
@@ -164,4 +168,22 @@ const drawBoard = (dimensions) => {
   const width = parseInt(dimensionsArray[0], 10);
   const height = parseInt(dimensionsArray[1], 10);
   document.getElementById('chess_board').innerHTML = constructBoard(width, height);
+};
+
+/* --- 04 --- */
+const makeLink = (source) => {
+  let link = source.trim();
+  if (matchPattern(link, isURLPattern) || matchPattern(link, isIPPattern)) {
+    console.log(matched);
+    return `<a href='${link}>${link}</a> '`;
+  }
+  return '';
+}
+
+const processURLAndIP = (linksList) => {
+  let data = linksList.split(',');
+  data = data.forEach((link) => makeLink(link));
+  console.log(data);
+  const result = data.reduce((accumulator, link) => accumulator + link, 0);
+  document.getElementById('list-of-url-and-ip').innerHTML = result;
 };

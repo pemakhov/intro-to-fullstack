@@ -41,6 +41,11 @@
     <input type="button" value="Draw!" onClick='drawBoard(getElementById("board_dimensions").value)'>
     <div id="chess_board" class="result"></div>
     <hr>
+    <div>5) Input comma separated web-links and/or IP addresses</div>
+    <textarea id="url-and-ip" rows="3" cols="30" 
+    onchange="processURLAndIP(value)"></textarea>
+    <div id="list-of-url-and-ip" class="result"></div>
+    <hr>
   </form>
 </body>
 </html>
