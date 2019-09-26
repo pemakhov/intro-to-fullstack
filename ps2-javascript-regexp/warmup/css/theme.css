@@ -129,3 +129,11 @@ hr {
 .board__cell--light {
   background-color: var(--normal-color);
 }
+
+/* End of chess board style */
+
+/* Web links */
+.result a,
+.result a:visited {
+  color: var(--normal-color);
+}

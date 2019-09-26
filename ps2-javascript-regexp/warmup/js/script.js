@@ -173,8 +173,9 @@ const drawBoard = (dimensions) => {
 /* --- 04 --- */
 const makeLink = (source) => {
   const link = source.trim();
+  const linkName = (link.startsWith('http')) ? link.substring(link.indexOf(':') + 3) : link;
   if (matchPattern(link, isURLPattern) || matchPattern(link, isIPPattern)) {
-    return `<a href="${link}" target="_blank">${link}</a>, `;
+    return `<a href="${link}" target="_blank">${linkName}</a>, `;
   }
   return '';
 };
