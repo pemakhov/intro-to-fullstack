@@ -93,6 +93,7 @@ const putSeconds = (givenTime) => {
   const seconds = parseInt(time[2], 10);
   document.getElementById('counted_seconds').innerHTML = countSeconds(hours, minutes, seconds);
 };
+
 /* --- 03 --- */
 const secondsInDay = SECONDS_IN_HOUR * HOURS_IN_DAY;
 const secondsInMonth = secondsInDay * DAYS_IN_MONTH;
@@ -127,6 +128,7 @@ const putTimePeriod = (d1, d2) => {
   ${resultMonths} month(s), ${resultDays} day(s), 
   ${resultHours} hour(s), ${resultMinutes} minute(s), ${leftSeconds} second(s)`;
 };
+
 /* --- 04 --- */
 const boardHTML = ['<div class="board">', '</div>'];
 const rowHTML = ['<div class="board__row">', '</div>'];
@@ -170,7 +172,7 @@ const drawBoard = (dimensions) => {
   document.getElementById('chess_board').innerHTML = constructBoard(width, height);
 };
 
-/* --- 04 --- */
+/* --- 05 --- */
 const makeLink = (source) => {
   const link = source.trim();
   const linkName = (link.startsWith('http')) ? link.substring(link.indexOf(':') + 3) : link;
@@ -186,3 +188,10 @@ const processURLAndIP = (linksList) => {
   const result = data.reduce((accumulator, link) => accumulator + link);
   document.getElementById('list-of-url-and-ip').innerHTML = result.substring(0, result.length - 2);
 };
+
+/* --- 06 --- */
+const findMatches = (text, matchPhrase) => {
+  console.log(text);
+  console.log(matchPhrase);
+  document.getElementById('marked-text').innerHTML = text;
+}

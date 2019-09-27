@@ -3,6 +3,7 @@
   --normal-color: #bdc3c7;
   --hover-color: #3498db;
   --active-color: #e74c3c;
+  --placeholder-color: #798092;
 }
 
 * {
@@ -136,4 +137,18 @@ hr {
 .result a,
 .result a:visited {
   color: var(--normal-color);
+}
+
+/* Placeholder style */
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-color: var(--placeholder-color);
+}
+::-moz-placeholder { /* Firefox 19+ */
+  font-color: var(--placeholder-color);
+}
+:-ms-input-placeholder { /* IE 10+ */
+  font-color: var(--placeholder-color);
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-color: var(--placeholder-color);
 }
