@@ -197,6 +197,7 @@ const splitRegEx = (reg) => {
 };
 
 const makeRegEx = (phrase) => {
+  if (phrase === '') return '';
   if (isRegExPattern.test(phrase)) {
     const regExParts = splitRegEx(phrase);
     return new RegExp(regExParts[0], regExParts[1]);
@@ -212,10 +213,10 @@ const replaceMatches = (text, matched, matchedWithTags) => {
   return textWithTags;
 };
 
-const findMatches = (text, matchPhrase) => {
+const findMatches = (text = '', matchPhrase = '') => {
+  let result = text;
   const regExPhrase = makeRegEx(matchPhrase);
   const matched = text.match(regExPhrase);
-  let result = '';
   if (matched !== null) {
     const matchedWithTags = matched.map((phrase) => `<mark>${phrase}</mark>`);
     result = replaceMatches(text, matched, matchedWithTags);
