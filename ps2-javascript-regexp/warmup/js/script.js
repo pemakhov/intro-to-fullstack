@@ -9,8 +9,9 @@ const isNumberPattern = /^[0-9-]+$/;
 const isTimeHMSPattern = /^\d\d:[0-5]\d:[0-5]\d$/;
 const isValidDatePattern = /^(\d{4})-\d\d-\d\dT\d\d:\d\d(:\d\d$|$)/;
 const isBoardDimensionsPattern = /^\d+x\d+$/;
-const isURLPattern = /((http|https):\/\/)((www(?=\.)).|)[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[a-zA-z-]+([a-zA-Z-._~:\/?#\[\]@!$&'\(\)*+;=]+)(?=(,|\s|$))/;
+const isURLPattern = /((http|https):\/\/)((www(?=\.)).|)[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[a-zA-z-]+([a-zA-Z-._~:\/?#\[\]@!$&'\(\)*+;=]+)(,|\s|$)/;
 const isIPPattern = /(((2[0-5][0-5])|1\d\d|\d\d|\d):){3}(2[0-5][0-5]|1\d\d|\d\d|\d)(,|$|\s)/;
+const isRegExPattern = /\/.+(\/(?=([gimsuy]|$)))([gimsuy]+|$)/;
 
 const matchPattern = (matchingWord, pattern) => pattern.test(matchingWord);
 
@@ -190,8 +191,34 @@ const processURLAndIP = (linksList) => {
 };
 
 /* --- 06 --- */
+const splitRegEx = (reg) => {
+  const indexOfSplitter = reg.lastIndexOf('/');
+  return [reg.substring(1, indexOfSplitter), reg.substring(indexOfSplitter + 1)];
+};
+
+const makeRegEx = (phrase) => {
+  if (isRegExPattern.test(phrase)) {
+    const regExParts = splitRegEx(phrase);
+    return new RegExp(regExParts[0], regExParts[1]);
+  }
+  return new RegExp(phrase, 'g');
+};
+
+const replaceMatches = (text, matched, matchedWithTags) => {
+  let textWithTags = text;
+  for (let i = 0; i < matched.length; i += 1) {
+    textWithTags = textWithTags.replace(new RegExp(matched[i], 'g'), matchedWithTags[i]);
+  }
+  return textWithTags;
+};
+
 const findMatches = (text, matchPhrase) => {
-  console.log(text);
-  console.log(matchPhrase);
-  document.getElementById('marked-text').innerHTML = text;
-}
+  const regExPhrase = makeRegEx(matchPhrase);
+  const matched = text.match(regExPhrase);
+  let result = '';
+  if (matched !== null) {
+    const matchedWithTags = matched.map((phrase) => `<mark>${phrase}</mark>`);
+    result = replaceMatches(text, matched, matchedWithTags);
+  }
+  document.getElementById('marked-text').innerHTML = result;
+};
