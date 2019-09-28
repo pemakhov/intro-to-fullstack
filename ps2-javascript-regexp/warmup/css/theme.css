@@ -5,7 +5,7 @@
   --active-color: #e74c3c;
   --placeholder-color: #798092;
 }
-
+ 
 * {
   font-family: serif, Times;
 }
@@ -21,12 +21,27 @@ html {
   color: var(--normal-color);
 }
 
-form {
-  margin: 1em auto;
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  text-align: center;
+}
+
+.wraper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.block {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 400px;
+  margin: 1em 3em;
 }
 
 form div {
@@ -100,7 +115,7 @@ textarea {
 hr {
   width: 100%;
   border: 1px solid var(--normal-color);
-  margin: 2em 0;
+  margin: 0 0 2em;
 }
 
 /* Chess board style */

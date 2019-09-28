@@ -7,50 +7,62 @@
   <title>Warm-up</title>
 </head>
 <body>
-  <form name="form">
-    <h1>Warm up</h1>
-    <div>1) The sum of all numbers ending in 2, 3 or 7 in the range</div>
-    <div class="input_caption">from</div>
-    <input type="number" id="first_number" value="1" onfocus="this.value=''">
-    <div class="input_caption">to</div>
-    <input type="number" id="last_number" value="10" onfocus="this.value=''">
-    <input type="button" value="Go!" onClick='putSum(getElementById("first_number").value, getElementById("last_number").value)'>
-    <div id="magic_sum" class="result">...</div>
-    <hr>
-    <div>2) Time processing</div>
-    <div>a. Seconds into hh:mm:ss format</div>
-    <input type="number" id="seconds" value="9999" onfocus="this.value=''">
-    <input type="button" value="Convert!" onClick='convertSeconds(getElementById("seconds").value)'>
-    <div id="formatted_time" class="result">...</div>
-    <div>b. Count seconds. Input time in format hh:mm:ss.</div>
-    <input type="text" id="time" value="22:59:59" onfocus="this.value=''">
-    <input type="button" value="Count!" onClick='putSeconds(getElementById("time").value)'>
-    <div id="counted_seconds" class="result">...</div>
-    <hr>
-    <div>3) Period of time between</div>
-    <input type="datetime-local" id="date_time_0" step="1">
-    <div class="input_caption">and</div>
-    <input type="datetime-local" id="date_time_1" step="1">
-    <input type="button" value="Go!" onClick='putTimePeriod(
-    getElementById("date_time_0").value, getElementById("date_time_1").value)'>
-    <div id="time_between_dates" class="result">...</div>
-    <hr>
-    <div>4) Chess board</div>
-    <div>Input the dimensions of a board in format "8x8"</div>
-    <input type="text" id="board_dimensions" value="8x8" onfocus="this.value=''">
-    <input type="button" value="Draw!" onClick='drawBoard(getElementById("board_dimensions").value)'>
-    <div id="chess_board" class="result"></div>
-    <hr>
-    <div>5) Input comma separated web-links and/or IP addresses</div>
-    <textarea id="url-and-ip" rows="3" cols="30" onchange="processURLAndIP(value)"></textarea>
-    <div id="list-of-url-and-ip" class="result"></div>
-    <hr>
-    <div>6) Mark matching text</div>
-    <textarea id="text-for-matches" rows="5" cols="30" placeholder="Input some text"></textarea>
-    <input type="text" id="match-regex" placeholder="Input a phrase or a RegEx">
-    <input type="button" value="Mark!" onClick='findMatches(getElementById("text-for-matches").value, getElementById("match-regex").value)'>
-    <div id="marked-text" class="result">...</div>
-    <hr>
-  </form>
+  <header><h1>Warm-up</h1></header>
+  <div class="wraper">
+    <div class="block">
+      <hr>
+      <div>1) The sum of all numbers ending in 2, 3 or 7 in the range</div>
+      <div class="input_caption">from</div>
+      <input type="number" id="first_number" value="1" onfocus="this.value=''">
+      <div class="input_caption">to</div>
+      <input type="number" id="last_number" value="10" onfocus="this.value=''">
+      <input type="button" value="Count!" onClick='putSum(getElementById("first_number").value, getElementById("last_number").value)'>
+      <div id="magic_sum" class="result">...</div>
+    </div>
+    <div class="block">
+      <hr>
+      <div>2) Time processing</div>
+      <div>a. Convert seconds into hh:mm:ss format</div>
+      <input type="number" id="seconds" value="9999" onfocus="this.value=''">
+      <input type="button" value="Convert!" onClick='convertSeconds(getElementById("seconds").value)'>
+      <div id="formatted_time" class="result">...</div>
+      <div>b. Count seconds. Input time in format hh:mm:ss</div>
+      <input type="text" id="time" value="22:59:59" onfocus="this.value=''">
+      <input type="button" value="Count!" onClick='putSeconds(getElementById("time").value)'>
+      <div id="counted_seconds" class="result">...</div>
+    </div>
+    <div class="block">
+      <hr>
+      <div>3) Period of time between</div>
+      <input type="datetime-local" id="date_time_0" step="1">
+      <div class="input_caption">and</div>
+      <input type="datetime-local" id="date_time_1" step="1">
+      <input type="button" value="Count!" onClick='putTimePeriod(
+      getElementById("date_time_0").value, getElementById("date_time_1").value)'>
+      <div id="time_between_dates" class="result">...</div>
+    </div>
+    <div class="block">
+      <hr>
+      <div>4) Chess board</div>
+      <div>Input the dimensions of a board in format "8x8"</div>
+      <input type="text" id="board_dimensions" value="8x8" onfocus="this.value=''">
+      <input type="button" value="Draw!" onClick='drawBoard(getElementById("board_dimensions").value)'>
+      <div id="chess_board" class="result"></div>
+    </div>
+    <div class="block">
+      <hr>
+      <div>5) Input comma separated web-links and/or IP addresses</div>
+      <textarea id="url-and-ip" rows="3" cols="30" onchange="processURLAndIP(value)"></textarea>
+      <div id="list-of-url-and-ip" class="result"></div>
+    </div>
+    <div class="block">
+      <hr>
+      <div>6) Mark matching text</div>
+      <textarea id="text-for-matches" rows="5" cols="30" placeholder="Input some text"></textarea>
+      <input type="text" id="match-regex" placeholder="Input a phrase or a RegEx">
+      <input type="button" value="Mark!" onClick='findMatches(getElementById("text-for-matches").value, getElementById("match-regex").value)'>
+      <div id="marked-text" class="result">...</div>
+    </div>
+  </div>
 </body>
 </html>
