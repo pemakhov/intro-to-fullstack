@@ -11,7 +11,7 @@ const isNumberPattern = /^[0-9-]+$/;
 const isTimeHMSPattern = /^\d\d:[0-5]\d:[0-5]\d$/;
 const isValidDatePattern = /^(\d{4})-\d\d-\d\dT\d\d:\d\d(:\d\d$|$)/;
 const isBoardDimensionsPattern = /^\d+x\d+$/;
-const isURLPattern = /((http|https):\/\/)((www(?=\.)).|)[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[a-zA-z-]+([a-zA-Z-._~:\/?#\[\]@!$&'\(\)*+;=]+)(,|\s|$)/;
+const isURLPattern = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 const isIPPattern = /(((2[0-5][0-5])|1\d\d|\d\d|\d):){3}(2[0-5][0-5]|1\d\d|\d\d|\d)(,|$|\s)/;
 const isRegExPattern = /\/.+(\/(?=([gimsuy]|$)))([gimsuy]+|$)/;
 
