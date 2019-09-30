@@ -1,4 +1,4 @@
-const goods = $.getJSON('database.js');
+import { DATA } from 'database';
 
 const openRow = (result) => result.concat('<tr>');
 const closeRow = (result) => result.concat('</tr>');
@@ -12,6 +12,7 @@ const addItem = (src, item) => {
 };
 
 const printData = (goods) => {
+  console.log(DATA);
   let result = '';
   for (const item of goods) {
     result = result.concat(openRow(result));
