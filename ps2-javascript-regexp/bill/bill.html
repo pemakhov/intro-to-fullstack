@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Table task</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
-  <script src="js/database.js"></script>
   <script src="js/script.js"></script>
 </head>
 <body>
@@ -28,7 +27,7 @@
             <div class="field">
               <p class="control">
                 <div class="select" style="width: 100%">
-                  <select placeholder="Filter by category" style="width: 100%">
+                  <select placeholder="Filter by category" style="width: 100%" id="category-select">
                     <option value="" selected>Filter by category</option>
                     <option value="supplies">Office supplies</option>
                     <option value="furniture">Furniture</option>
@@ -51,34 +50,13 @@
             </tr>
           </thead>
           <tbody id="goods">
-
-
-            <!-- <tr> -->
-            <!--   <td>Office supplies</td> -->
-            <!--   <td>Pen</td> -->
-            <!--   <td>10</td> -->
-            <!--   <td>2$</td> -->
-            <!-- </tr> -->
-            <!-- <tr> -->
-            <!--   <td>Furniture</td> -->
-            <!--   <td>Chair</td> -->
-            <!--   <td>1</td> -->
-            <!--   <td>20$</td> -->
-            <!-- </tr> -->
-            <!-- <tr> -->
-            <!--   <td>Other</td> -->
-            <!--   <td>Trash bin</td> -->
-            <!--   <td>1</td> -->
-            <!--   <td>5$</td> -->
-            <!-- </tr> -->
           </tbody>
-          <script>printData(GOODS);</script>
           <tfoot>
             <tr>
               <th></th>
               <th></th>
               <th>Total:</th>
-              <th>45$</th>
+              <th id="total"></th>
             </tr>
           </tfoot>
         </table>
