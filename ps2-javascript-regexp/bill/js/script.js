@@ -39,8 +39,36 @@ const GOODS = [
 
 const CURRENCY = '$';
 
-let currentCriteria = '';
+let data = GOODS;
+let currentSortCriteria = '';
 let sortUp = true;
+let currentCategory = '';
+
+const setSortDirection = (sortCriteria) => {
+  if (sortCriteria === currentSortCriteria) {
+    sortUp = !sortUp;
+  } else {
+    sortUp = true;
+  }
+};
+
+const sortByCriteria = (criteria) => {
+  data.sort((a, b) => {
+    if (a[criteria] < b[criteria]) {
+      if (sortUp) {
+        return -1;
+      }
+      return 1;
+    }
+    if (a[criteria] > b[criteria]) {
+      if (sortUp) {
+        return 1;
+      }
+      return -1;
+    }
+    return 0;
+  });
+};
 
 const addItem = (src, item) => {
   let result = src;
@@ -50,37 +78,12 @@ const addItem = (src, item) => {
   return result;
 };
 
-const sortByCriteria = (data, criteria, sortUp) => {
-  data.sort((a, b) => {
-    if (criteria === currentCriteria) {
-      sortUp = !sortUp;
-    } else {
-      sortUp = true;
-    }
-    if (a[criteria] < b[criteria]){
-      if (sortUp) {
-        return -1;
-      } else {
-        return 1;
-      }
-    }
-    if ( a[criteria] > b[criteria] ){
-      if (sortUp) {
-        return 1;
-      } else {
-        return -1;
-      }
-    }
-    return 0;
-  })
-};
-
-const printData = (data) => {
+const printData = () => {
   const rowOpener = '<tr>';
   const rowCloser = '</tr>';
   let result = '';
   let total = 0;
-  sortByCriteria(data, 'name', sortUp);
+  sortByCriteria('category');
   for (const item of data) {
     result = result.concat(rowOpener);
     result = addItem(result, item);
@@ -91,10 +94,17 @@ const printData = (data) => {
   document.getElementById('total').innerHTML = CURRENCY.concat(total);
 };
 
-const categorySelect = document.getElementById('category-select');
-const filterCategory = () => {
-  
-}
+document.addEventListener('DOMContentLoaded', () => printData(data));
 
-document.addEventListener('DOMContentLoaded', () => printData(GOODS));
-categorySelect.addEventListener('change', filterCategory())
+const filterCategory = () => {
+  const select = document.getElementById('category-select');
+  currentCategory = select.options[select.selectedIndex].value;
+  data = GOODS;
+  data = data.filter(item => (item.category === currentCategory) || currentCategory === '');
+  printData();
+};
+
+window.onload = () => {
+  const select = document.getElementById('category-select');
+  select.addEventListener('change', filterCategory);
+};
