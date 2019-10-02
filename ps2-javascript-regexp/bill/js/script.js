@@ -78,13 +78,13 @@ const addItem = (src, item) => {
   return result;
 };
 
-const printData = () => {
+const printData = (currentData = data) => {
   const rowOpener = '<tr>';
   const rowCloser = '</tr>';
   let result = '';
   let total = 0;
   sortByCriteria('category');
-  for (const item of data) {
+  for (const item of currentData) {
     result = result.concat(rowOpener);
     result = addItem(result, item);
     result = result.concat(rowCloser);
@@ -100,11 +100,20 @@ const filterCategory = () => {
   const select = document.getElementById('category-select');
   currentCategory = select.options[select.selectedIndex].value;
   data = GOODS;
-  data = data.filter(item => (item.category === currentCategory) || currentCategory === '');
+  data = data.filter((item) => (item.category === currentCategory) || currentCategory === '');
   printData();
+};
+
+const filterNamesOnType = () => {
+  let currentData = data;
+  const name = document.getElementById('find-by-name').value;
+  currentData = data.filter((item) => (item.name.startsWith(name)));
+  printData(currentData);
 };
 
 window.onload = () => {
   const select = document.getElementById('category-select');
+  const findByName = document.getElementById('find-by-name');
   select.addEventListener('change', filterCategory);
+  findByName.addEventListener('keyup', filterNamesOnType);
 };
