@@ -7,6 +7,21 @@
   <title>Table task</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
   <script src="js/script.js"></script>
+  <style>
+    .sort-label {
+      cursor: pointer;
+    }
+    .sort-down::after {
+      content: "▼";
+    }
+    .sort-up::after {
+      content: "▲";
+    }
+    .sort-off::after {
+      content: "▹";
+      /* content: "▸"; */
+    }
+  </style>
 </head>
 <body>
   <section class="container" style="margin-top: 2rem">
@@ -43,8 +58,8 @@
         <table class="table is-striped is-fullwidth">
           <thead>
             <tr>
-              <th id="category-direction">Category <span>▼</span></th>
-              <th id="name-direction">Name <span>▼</span></th>
+              <th id="category-direction" class="sort-label">Category <span id="category-arrow" class="sort-down"></span></th>
+              <th id="name-direction" class="sort-label">Name <span id="name-arrow" class="sort-off"></span></th>
               <th>Amount</th>
               <th>Price</th>
             </tr>

@@ -38,24 +38,26 @@ const GOODS = [
 ];
 
 const CURRENCY = '$';
-
+/* Current set of goods */
 let data = GOODS;
 let currentSortCriteria = '';
-let sortDown = true;
+/* Sort direction */
+let sortDown = false;
 
+/* Sorts data by a chosen criteria */
 const sortByCriteria = (criteria) => {
   if (currentSortCriteria !== criteria) {
-    sortDown = true;
+    sortDown = false;
     currentSortCriteria = criteria;
   }
   data.sort((a, b) => {
-    if (a[criteria] < b[criteria]) {
+    if (a[criteria] > b[criteria]) {
       if (sortDown) {
         return -1;
       }
       return 1;
     }
-    if (a[criteria] > b[criteria]) {
+    if (a[criteria] < b[criteria]) {
       if (sortDown) {
         return 1;
       }
@@ -65,18 +67,7 @@ const sortByCriteria = (criteria) => {
   });
 };
 
-const sortByCategory = () => {
-  sortByCriteria('category');
-  sortDown = !sortDown;
-  printData();
-};
-
-const sortByName = () => {
-  sortByCriteria('name');
-  sortDown = !sortDown;
-  printData();
-};
-
+/* Creates HTML layout for all properties of one item */
 const addItem = (src, item) => {
   let result = src;
   for (const property in item) {
@@ -85,6 +76,7 @@ const addItem = (src, item) => {
   return result;
 };
 
+/* Prints the table of data */
 const printData = (currentData = data) => {
   const rowOpener = '<tr>';
   const rowCloser = '</tr>';
@@ -100,23 +92,63 @@ const printData = (currentData = data) => {
   document.getElementById('total').innerHTML = CURRENCY.concat(total);
 };
 
-document.addEventListener('DOMContentLoaded', () => printData(data));
+/* Sets arrows according to a sort criteria and current direction */
+const setArrows = (activeCriteria) => {
+  const categoryArrow = document.getElementById('category-arrow');
+  const nameArrow = document.getElementById('name-arrow');
+  switch (activeCriteria) {
+    case 'category':
+      categoryArrow.className = ((sortDown) ? 'sort-down' : 'sort-up');
+      nameArrow.className = 'sort-off';
+      break;
+    case 'name':
+      categoryArrow.className = 'sort-off';
+      nameArrow.className = ((sortDown) ? 'sort-down' : 'sort-up');
+      break;
+    default:
+      categoryArrow.className = 'sort-off';
+      nameArrow.className = 'sort-off';
+  }
+};
 
+/* Sorts data by category */
+const sortByCategory = () => {
+  sortByCriteria('category');
+  sortDown = !sortDown;
+  setArrows('category');
+  printData();
+};
+
+/* Sorts data by name */
+const sortByName = () => {
+  sortByCriteria('name');
+  sortDown = !sortDown;
+  setArrows('name');
+  printData();
+};
+
+/* Filters the table of data by category */
 const filterCategory = () => {
   const select = document.getElementById('category-select');
-  let currentCategory = select.options[select.selectedIndex].value;
+  const currentCategory = select.options[select.selectedIndex].value;
   data = GOODS;
   data = data.filter((item) => (item.category === currentCategory) || currentCategory === '');
   document.getElementById('find-by-name').value = '';
   printData();
 };
 
+/* Filters the table of data by name */
 const filterNamesOnType = () => {
+  let currentData = data;
   const name = document.getElementById('find-by-name').value.toLowerCase();
-  data = data.filter((item) => (item.name.toLowerCase().includes(name)));
-  printData(data);
+  currentData = data.filter((item) => (item.name.toLowerCase().includes(name)));
+  printData(currentData);
 };
 
+/* Prints table when the page is loaded for the first time */
+document.addEventListener('DOMContentLoaded', () => printData(data));
+
+/* Event listeners */
 window.onload = () => {
   const select = document.getElementById('category-select');
   const findByName = document.getElementById('find-by-name');
