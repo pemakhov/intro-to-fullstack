@@ -41,33 +41,40 @@ const CURRENCY = '$';
 
 let data = GOODS;
 let currentSortCriteria = '';
-let sortUp = true;
-let currentCategory = '';
-
-const setSortDirection = (sortCriteria) => {
-  if (sortCriteria === currentSortCriteria) {
-    sortUp = !sortUp;
-  } else {
-    sortUp = true;
-  }
-};
+let sortDown = true;
 
 const sortByCriteria = (criteria) => {
+  if (currentSortCriteria !== criteria) {
+    sortDown = true;
+    currentSortCriteria = criteria;
+  }
   data.sort((a, b) => {
     if (a[criteria] < b[criteria]) {
-      if (sortUp) {
+      if (sortDown) {
         return -1;
       }
       return 1;
     }
     if (a[criteria] > b[criteria]) {
-      if (sortUp) {
+      if (sortDown) {
         return 1;
       }
       return -1;
     }
     return 0;
   });
+};
+
+const sortByCategory = () => {
+  sortByCriteria('category');
+  sortDown = !sortDown;
+  printData();
+};
+
+const sortByName = () => {
+  sortByCriteria('name');
+  sortDown = !sortDown;
+  printData();
 };
 
 const addItem = (src, item) => {
@@ -83,7 +90,6 @@ const printData = (currentData = data) => {
   const rowCloser = '</tr>';
   let result = '';
   let total = 0;
-  sortByCriteria('category');
   for (const item of currentData) {
     result = result.concat(rowOpener);
     result = addItem(result, item);
@@ -98,22 +104,26 @@ document.addEventListener('DOMContentLoaded', () => printData(data));
 
 const filterCategory = () => {
   const select = document.getElementById('category-select');
-  currentCategory = select.options[select.selectedIndex].value;
+  let currentCategory = select.options[select.selectedIndex].value;
   data = GOODS;
   data = data.filter((item) => (item.category === currentCategory) || currentCategory === '');
+  document.getElementById('find-by-name').value = '';
   printData();
 };
 
 const filterNamesOnType = () => {
-  let currentData = data;
-  const name = document.getElementById('find-by-name').value;
-  currentData = data.filter((item) => (item.name.startsWith(name)));
-  printData(currentData);
+  const name = document.getElementById('find-by-name').value.toLowerCase();
+  data = data.filter((item) => (item.name.toLowerCase().includes(name)));
+  printData(data);
 };
 
 window.onload = () => {
   const select = document.getElementById('category-select');
   const findByName = document.getElementById('find-by-name');
+  const categorySort = document.getElementById('category-direction');
+  const nameSort = document.getElementById('name-direction');
   select.addEventListener('change', filterCategory);
   findByName.addEventListener('keyup', filterNamesOnType);
+  categorySort.addEventListener('click', sortByCategory);
+  nameSort.addEventListener('click', sortByName);
 };
