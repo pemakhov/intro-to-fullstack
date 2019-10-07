@@ -25,7 +25,7 @@ const friends = [
 let currentSelection = 'Select Friend';
 
 const setSelection = (selection) => {
-  return '<div class="selection bar">'.concat(selection).concat('</div>');
+  return '<div class="selection">'.concat(selection).concat('</div>');
 };
 
 const setOptions = (options) => {
@@ -44,12 +44,12 @@ const setSelector = (selector, options) => {
   selector.append(setOptions(friends));
 };
 
-const toggleFold = () => $('#dropdown').slideToggle('slow');
-
 $(document).ready(function() {
   setSelector($('#dropdown'), friends);
   $('.selection').click(function() {
-    $('.panel').slideToggle();
+    $('.panel').slideToggle(500);
+    $('#dropdown').toggleClass('active');
+    $('.selection').toggleClass('bar');
   });
   $('.panel').slideUp(0);
 });

@@ -15,22 +15,32 @@ body {
   flex-direction: column;
   width: 600px;
   margin: 0 auto;
-  padding: 10px 0;
-  border: 2px solid blue;
-  border-color: #96d8ca;
   border-radius: 10px;
+}
+
+.default {
+  border: 2px solid #ddd;
+}
+
+#dropdown.active {
+  border: 2px solid #96d8ca;
+  padding-bottom: 10px;
 }
 
 .panel {
   flex-direction: column;
 }
 
-.bar {
+.bar,
+.selection {
   align-items: center;
   padding: 23px 30px;
-  border-bottom: 1px solid #ddd;
   font-size: 30px;
   font-family: sans-serif;
+}
+
+.bar {
+  border-bottom: 2px solid #eee;
 }
 
 img.avatar {
