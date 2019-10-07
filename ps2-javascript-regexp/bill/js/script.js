@@ -41,6 +41,8 @@ const CURRENCY = '$';
 /* Current set of goods */
 let data = GOODS;
 let currentSortCriteria = '';
+/* A set of goods filtred on type */
+let currentView = data;
 /* Sort direction */
 let sortDown = false;
 
@@ -50,7 +52,7 @@ const sortByCriteria = (criteria) => {
     sortDown = false;
     currentSortCriteria = criteria;
   }
-  data.sort((a, b) => {
+  currentView.sort((a, b) => {
     if (a[criteria] > b[criteria]) {
       if (sortDown) {
         return -1;
@@ -77,7 +79,7 @@ const addItem = (src, item) => {
 };
 
 /* Prints the table of data */
-const printData = (currentData = data) => {
+const printData = (currentData = currentView) => {
   const rowOpener = '<tr>';
   const rowCloser = '</tr>';
   let result = '';
@@ -134,15 +136,16 @@ const filterCategory = () => {
   data = GOODS;
   data = data.filter((item) => (item.category === currentCategory) || currentCategory === '');
   document.getElementById('find-by-name').value = '';
+  currentView = data;
   printData();
 };
 
 /* Filters the table of data by name */
 const filterNamesOnType = () => {
-  let currentData = data;
+  currentView = data;
   const name = document.getElementById('find-by-name').value.toLowerCase();
-  currentData = data.filter((item) => (item.name.toLowerCase().includes(name)));
-  printData(currentData);
+  currentView = data.filter((item) => (item.name.toLowerCase().includes(name)));
+  printData(currentView);
 };
 
 /* Prints table when the page is loaded for the first time */

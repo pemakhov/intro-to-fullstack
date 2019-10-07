@@ -270,13 +270,20 @@ const makeRegEx = (phrase) => {
 
 /* Replaces phrases in the text with an appropriate HTML code */
 const replaceMatches = (text, matched, matchedWithTags) => {
-  let textWithTags = text;
+  let source = text;
+  let result = '';
+  const closeTag = '</mark>';
   for (let i = 0; i < matched.length; i += 1) {
-    textWithTags = textWithTags.replace(new RegExp(matched[i], 'g'), matchedWithTags[i]);
+    const temp = source.replace(new RegExp(matched[i], 'g'), matchedWithTags[i]);
+    const index = temp.indexOf(closeTag) + closeTag.length + 1;
+    result = result.concat(temp.substring(index));
+    source = temp.substring(index);
+    console.log(`first part = ${result}, second part = ${source}`);
   }
-  return textWithTags;
+  return result;
 };
 
+/* Finds and highlights the input */
 const findMatches = (text = '', matchPhrase = '') => {
   let result = text;
   const regExPhrase = makeRegEx(matchPhrase);
