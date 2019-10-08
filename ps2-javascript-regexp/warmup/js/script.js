@@ -271,16 +271,17 @@ const makeRegEx = (phrase) => {
 
 /* Finds and highlights the input */
 const findMatches = (text = '', matchPhrase = '') => {
+  let result = text;
   const regExPhrase = makeRegEx(matchPhrase);
   const matched = text.split(regExPhrase);
   if (matched.length <= 1) {
-    return;
+    document.getElementById('marked-text').innerHTML = result;
   }
-  let result = matched.map((element) => {
-    element = (regExPhrase.test(element)) ?
-    '<mark>'.concat(element).concat('</mark>') : element;
-  });
-  console.log(result);
-  result = result.reduce((acc, elem) => acc.concat(elem));
+  for (let i = 0; i < matched.length; i += 1) {
+    if (regExPhrase.test(matched[i])) {
+      matched[i] = '<mark>'.concat(matched[i]).concat('</mark>');
+    }
+  }
+  result = matched.reduce((acc, elem) => acc.concat(elem));
   document.getElementById('marked-text').innerHTML = result;
 };
