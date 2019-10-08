@@ -263,34 +263,24 @@ const makeRegEx = (phrase) => {
   if (phrase === '') return '';
   if (isRegExPattern.test(phrase)) {
     const regExParts = splitRegEx(phrase);
-    return new RegExp(regExParts[0], regExParts[1]);
+    /* Put RegExp into paranthases to include found phrase into final array at split */
+    return new RegExp(`(${regExParts[0]})`, regExParts[1]);
   }
-  return new RegExp(phrase, 'g');
-};
-
-/* Replaces phrases in the text with an appropriate HTML code */
-const replaceMatches = (text, matched, matchedWithTags) => {
-  let source = text;
-  let result = '';
-  const closeTag = '</mark>';
-  for (let i = 0; i < matched.length; i += 1) {
-    const temp = source.replace(new RegExp(matched[i], 'g'), matchedWithTags[i]);
-    const index = temp.indexOf(closeTag) + closeTag.length + 1;
-    result = result.concat(temp.substring(index));
-    source = temp.substring(index);
-    console.log(`first part = ${result}, second part = ${source}`);
-  }
-  return result;
+  return new RegExp(`(${phrase})`, 'g');
 };
 
 /* Finds and highlights the input */
 const findMatches = (text = '', matchPhrase = '') => {
-  let result = text;
   const regExPhrase = makeRegEx(matchPhrase);
-  const matched = text.match(regExPhrase);
-  if (matched !== null) {
-    const matchedWithTags = matched.map((phrase) => `<mark>${phrase}</mark>`);
-    result = replaceMatches(text, matched, matchedWithTags);
+  const matched = text.split(regExPhrase);
+  if (matched.length <= 1) {
+    return;
   }
+  let result = matched.map((element) => {
+    element = (regExPhrase.test(element)) ?
+    '<mark>'.concat(element).concat('</mark>') : element;
+  });
+  console.log(result);
+  result = result.reduce((acc, elem) => acc.concat(elem));
   document.getElementById('marked-text').innerHTML = result;
 };
