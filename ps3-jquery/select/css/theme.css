@@ -1,5 +1,5 @@
 body {
-  text-align: center;
+  margin-top: 5%;
 }
 
 #dropdown,
@@ -33,14 +33,36 @@ body {
 
 .bar,
 .selection {
+  display: flex;
   align-items: center;
   padding: 23px 30px;
   font-size: 30px;
   font-family: sans-serif;
 }
 
+.selection span {
+  display: block;
+  margin-left: auto;
+}
+
+.selection span:after {
+  content: "▾";
+}
+
+.active .selection span:after {
+  content: "▴";
+}
+
 .bar {
   border-bottom: 2px solid #eee;
+}
+
+.bar:first-child {
+  border-top: 2px solid #eee;
+}
+
+.hidden {
+  display: none;
 }
 
 img.avatar {

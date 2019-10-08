@@ -1,4 +1,4 @@
-// const names = ['Jenny Hess', 'Elliot Foo', 'Stevie Feliciano', 'Christian', 'Matt'];
+/* Data of friends */
 const friends = [
   {
     name: 'Jenny Hess',
@@ -22,34 +22,65 @@ const friends = [
   },
 ];
 
-let currentSelection = 'Select Friend';
+/* Contains HTML of the selector before any option was chosen */
+const defaultSelectorHtml = '<div class="selection">Select Friend<span></span></div>';
+/* Contains HTML of currently chosen or default option */
+let selectorHtml = defaultSelectorHtml;
+/* Contains the option that was chosen the last time, or null */
+let currentBar = null;
 
-const setSelection = (selection) => {
-  return '<div class="selection">'.concat(selection).concat('</div>');
-};
-
+/* Sets all options. Places them into a container ("panel"). Returns
+* container with options.
+*/
 const setOptions = (options) => {
+  /* The container for options */
   let panel = '<div class="panel">';
+  /* Wrap each bar into HTML tags */
   const bars = friends.map((item) => '<div class="bar">'
     .concat('<img class="avatar" src="').concat(item.avatarSrc).concat('"></img>')
     .concat(item.name).concat('</div>')
   );
+  /* Concatinate all bars code into one string, then - to panel string */
   panel = panel.concat(bars.reduce((acc, value) => acc.concat(value)));
   panel = panel.concat('</div>');
   return panel;
 };
 
+/* Sets selector (dropdown list) */
 const setSelector = (selector, options) => {
-  selector.append(setSelection(currentSelection));
+  selector.append(selectorHtml);
   selector.append(setOptions(friends));
 };
 
+/* Launches all functions when the document is ready */
 $(document).ready(function() {
+  /* Sets the selector (dropdown list of options) */
   setSelector($('#dropdown'), friends);
+  /* Toggle of the panel (list of options) */
   $('.selection').click(function() {
     $('.panel').slideToggle(500);
+    /* Toggle the border color for folded and unfolded selector */
     $('#dropdown').toggleClass('active');
-    $('.selection').toggleClass('bar');
+    /* Toggle the background for folded and unfolded selector */
+    $('.bar').hover(function() {
+      $(this).css('background-color', '#eee');
+    }, function(){
+      $(this).css('background-color', 'white');
+    });
   });
+  /* By default the slider is unfolded, so I make it folded */
   $('.panel').slideUp(0);
+  /* Makes a bar selected: shovs it on the top */
+  $('.bar').click(function() {
+    selectorHtml = $(this).html();
+    $('.panel').slideUp(500);
+    $('.selection').html(`${selectorHtml}<span></span>`);
+    $('#dropdown').toggleClass('active');
+    /* CurrentBar can be equal null before at least one option was selected */
+    if (currentBar !== null) {
+      currentBar.removeClass('hidden');
+    }
+    currentBar = $(this);
+    currentBar.addClass('hidden');
+  });
 });
