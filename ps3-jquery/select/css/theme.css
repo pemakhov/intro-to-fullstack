@@ -1,5 +1,5 @@
 body {
-  margin-top: 5%;
+  padding-top: 5%;
 }
 
 #dropdown,
@@ -18,7 +18,7 @@ body {
   border-radius: 10px;
 }
 
-.default {
+#dropdown.default {
   border: 2px solid #ddd;
 }
 
@@ -40,9 +40,14 @@ body {
   font-family: sans-serif;
 }
 
+.selection.default {
+  color: #aaa;
+}
+
 .selection span {
   display: block;
   margin-left: auto;
+  color: black;
 }
 
 .selection span:after {

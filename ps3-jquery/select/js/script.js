@@ -23,7 +23,7 @@ const friends = [
 ];
 
 /* Contains HTML of the selector before any option was chosen */
-const defaultSelectorHtml = '<div class="selection">Select Friend<span></span></div>';
+const defaultSelectorHtml = '<div class="selection default">Select Friend<span></span></div>';
 /* Contains HTML of currently chosen or default option */
 let selectorHtml = defaultSelectorHtml;
 /* Contains the option that was chosen the last time, or null */
@@ -82,5 +82,7 @@ $(document).ready(function() {
     }
     currentBar = $(this);
     currentBar.addClass('hidden');
+    /* Selection with class 'default' has light-grey color */
+    $('.selection').removeClass('default');
   });
 });
