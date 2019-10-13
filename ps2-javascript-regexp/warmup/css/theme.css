@@ -30,6 +30,13 @@ header {
   text-align: center;
 }
 
+h1 {
+  font-size: 72px;
+  background: -webkit-linear-gradient(var(--normal-color), var(--active-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .wraper {
   display: flex;
   flex-wrap: wrap;
@@ -42,6 +49,8 @@ header {
   align-items: center;
   width: 400px;
   margin: 1em 3em;
+  padding: 5px;
+  overflow: auto;
 }
 
 form div {
@@ -129,8 +138,7 @@ hr {
 
 .board {
   border: 1px solid var(--normal-color);
-  display: flex;
-  flex-direction: column;
+  display: block;
 }
 
 .board__row {

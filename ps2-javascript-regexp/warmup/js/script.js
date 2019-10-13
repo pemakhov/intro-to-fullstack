@@ -12,7 +12,7 @@ const isTimeHMSPattern = /^\d\d:[0-5]\d:[0-5]\d$/;
 const isValidDatePattern = /^(\d{4})-\d\d-\d\dT\d\d:\d\d(:\d\d$|$)/;
 const isBoardDimensionsPattern = /^\d+x\d+$/;
 const isURLPattern = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
-const isIPPattern = /(((2[0-5][0-5])|1\d\d|\d\d|\d):){3}(2[0-5][0-5]|1\d\d|\d\d|\d)(,|$|\s)/;
+const isIPPattern = /(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/;
 const isRegExPattern = /\/.+(\/(?=([gimsuy]|$)))([gimsuy]+|$)/;
 
 /* Tests if given matchingWord matches given pattern
@@ -53,9 +53,18 @@ const putSum = (a, b) => {
     first = last;
     last = temp;
   }
+  /* Restriction to avoid stack overflow */
+  const MAX_NUMBER = 9999999;
+  /* The variable containing the result message */
+  let result;
   /* The sum of eligible numbers of the range */
-  const result = calcSum(first, last);
-  document.getElementById('magic_sum').innerHTML = `Magic sum is  ${result}`;
+  if (first < -MAX_NUMBER || last > MAX_NUMBER) {
+    result = `Numbers must be bigger than -${MAX_NUMBER}, but smaller than ${MAX_NUMBER}.`;
+  } else {
+    result = calcSum(first, last);
+    result = `Magic sum is  ${result}`;
+  }
+  document.getElementById('magic_sum').innerHTML = result;
 };
 
 /* --- 02 --- */
@@ -176,7 +185,7 @@ const putTimePeriod = (d1, d2) => {
 };
 
 /* --- 04 --- */
-/* Opent and close HTML tags for the board elements */
+/* Open and close HTML tags for the board elements */
 const boardHTML = ['<div class="board">', '</div>'];
 const rowHTML = ['<div class="board__row">', '</div>'];
 const darkCellHTML = '<div class="board__cell"></div>';
@@ -224,7 +233,15 @@ const drawBoard = (dimensions) => {
   const dimensionsArray = dimensions.split('x');
   const width = parseInt(dimensionsArray[0], 10);
   const height = parseInt(dimensionsArray[1], 10);
-  document.getElementById('chess_board').innerHTML = constructBoard(width, height);
+  const MAX_DIMENSION = 100;
+  /* The variable containing an error message or a board HTML */
+  let result;
+  if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
+    result = `Widht or length can't be bigger than ${MAX_DIMENSION}`;
+  } else {
+    result = constructBoard(width, height);
+  }
+  document.getElementById('chess_board').innerHTML = result;
 };
 
 /* --- 05 --- */
@@ -235,6 +252,7 @@ const drawBoard = (dimensions) => {
 const makeLink = (source) => {
   const link = source.trim();
   const linkName = (link.startsWith('http')) ? link.substring(link.indexOf(':') + 3) : link;
+  console.log(link);
   if (matchPattern(link, isURLPattern) || matchPattern(link, isIPPattern)) {
     return `<a href="${link}" target="_blank">${linkName}</a>, `;
   }
@@ -271,12 +289,9 @@ const makeRegEx = (phrase) => {
 
 /* Finds and highlights the input */
 const findMatches = (text = '', matchPhrase = '') => {
-  let result = text;
+  let result = text.replace(/</g, '&lt').replace(/>/g, '&gt');
   const regExPhrase = makeRegEx(matchPhrase);
-  const matched = text.split(regExPhrase);
-  if (matched.length <= 1) {
-    document.getElementById('marked-text').innerHTML = result;
-  }
+  const matched = result.split(regExPhrase);
   for (let i = 0; i < matched.length; i += 1) {
     if (regExPhrase.test(matched[i])) {
       matched[i] = '<mark>'.concat(matched[i]).concat('</mark>');
