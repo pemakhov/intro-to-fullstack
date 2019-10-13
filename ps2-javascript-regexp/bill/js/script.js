@@ -129,23 +129,24 @@ const sortByName = () => {
   printData();
 };
 
-/* Filters the table of data by category */
-const filterCategory = () => {
-  const select = document.getElementById('category-select');
-  const currentCategory = select.options[select.selectedIndex].value;
-  data = GOODS;
-  data = data.filter((item) => (item.category === currentCategory) || currentCategory === '');
-  document.getElementById('find-by-name').value = '';
-  currentView = data;
-  printData();
-};
-
 /* Filters the table of data by name */
 const filterNamesOnType = () => {
   currentView = data;
   const name = document.getElementById('find-by-name').value.toLowerCase();
   currentView = data.filter((item) => (item.name.toLowerCase().includes(name)));
   printData(currentView);
+};
+
+/* Filters the table of data by category */
+const filterCategory = () => {
+  const select = document.getElementById('category-select');
+  const currentCategory = select.options[select.selectedIndex].value;
+  data = GOODS;
+  data = data.filter((item) => (item.category === currentCategory) || currentCategory === '');
+  // document.getElementById('find-by-name').value = '';
+  currentView = data;
+  // printData();
+  filterNamesOnType();
 };
 
 /* Prints table when the page is loaded for the first time */
