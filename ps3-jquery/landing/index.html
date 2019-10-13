@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+  <script src="https://kit.fontawesome.com/1f450c1134.js" crossorigin="anonymous"></script> 
+  <script src="js/script.js"></script>
+  <title>N++ Solutions</title>
+</head>
+<a id="to-top-button"></a>
+<header>
+  <div class="logo"><a href="">N<span>++</span></a></div>
+  <div class="main-menu">
+    <ul>
+      <li><a href="#products-section">PRODUCTS</a></li>
+      <li><a href="#content-section">ABOUT US</a></li>
+      <li><a href="#contact-us-section">CONTACT US</a></li>
+    </ul>
+  </div>
+</header>
+<body>
+  <div id="products-section" class="banner">
+    <img src="img/iphone.png" alt="Fancy phone">
+    <div class="banner__article">
+      <h1>Our awesome app is ready to use!</h1>
+      <p>Consectetur temporibus quo et quam excepturi Ex consequuntur quisquam culpa omnis harum Et facere incidunt asperiores aliquid quidem voluptatem Minus eligendi dolore animi qui minus. Voluptatem maxime officiis voluptatem hic maxime.</p>
+      <button type="button">Buy now!</button>
+    </div>
+  </div>
+  <div id="content-section" class="content">
+    <div class="content__article">
+      <div class="content__article__icon">
+        <span class="fas fa-code fa-7x"></span>
+      </div>
+      <h2>Web development</h2>
+      <p>
+        Elit aspernatur officia obcaecati necessitatibus inventore, ipsum. Tempora quasi sit exercitationem aliquam atque suscipit. Placeat illum voluptatum optio reiciendis quas Corporis quasi rerum provident recusandae quas!</p>
+    </div>
+    <div class="content__article">
+      <div class="content__article__icon">
+        <span class="fab fa-android fa-10x"></span>
+      </div>
+      <h2>Mobile development</h2>
+      <p>
+        Elit aspernatur officia obcaecati necessitatibus inventore, ipsum. Tempora quasi sit exercitationem aliquam atque suscipit. Placeat illum voluptatum optio reiciendis quas Corporis quasi rerum provident recusandae quas!</p>
+    </div>
+    <div class="content__article">
+      <div class="content__article__icon">
+        <span class="fa fa-cloud fa-7x"></span>
+      </div>
+      <h2>Highload</h2>
+      <p>
+        Elit aspernatur officia obcaecati necessitatibus inventore, ipsum. Tempora quasi sit exercitationem aliquam atque suscipit. Placeat illum voluptatum optio reiciendis quas Corporis quasi rerum provident recusandae quas!</p>
+    </div>
+  </div>
+  </div>
+  </body>
+  <footer id="contact-us-section">
+    <h1>Contact us!</h1>
+    <form action="" method="get" id="form">
+      <input type="text" name="name" placeholder="Type here your name, please">
+      <input type="email" name="email" placeholder="Type here your email, please">
+      <input type="tel" name="phone" placeholder="Type here your phone, please">
+      <textarea name="question" placeholder="Ask your questoin." cols="30" rows="5"></textarea>
+      <label for="checkbox">I'm a bot
+        <input type="checkbox" name="notbot" value="Not a bot" class="checkbox">
+      </label>
+      <div>Please, chose a color.</div>
+      <input type="color" name="colorsample" value="#800080">
+      <div>Please, input your birth date.</div>
+      <input type="date" name="date">
+      <div>And again, more precisely, with the time.</div>
+      <input type="datetime-local" name="date">
+      <input type="file" name="file" class="fileinput">
+      <input type="hidden" name="answer" value="42">
+      <div>
+        <input type="image" src="img/cat0.png" value="Image as the submit button" width="60" height="60" class="submitimg">
+        <span class="description">Each time you click this button, somewhere a little cat dies.</span>
+      </div>
+      <input type="month" name="month">
+      <input type="week" name="week">
+      <input type="time" name="time">
+      <input type="number" name="number" min="0" max="10" value="7">
+      <div>Please, input your password.</div>
+      <input type="password" name="yourpass">
+      <div>What do you prefare?</div>
+      <label for="radio">Checkboxes
+        <input type="radio" name="yesorno" value="yes">
+      </label>
+      <label for="radio">Radiobuttons
+      <input type="radio" name="yesorno" value="no">
+      </label>
+      <div>Drug this slider left and right, its cool!</div>
+      <input type="range" name="range" min="0" max="100">
+      <input type="reset">
+      <input type="search" q="googlesearch" placeholder="Type something to search, please">
+    <input type="submit">
+    </form>
+    <button type="submit" form="form" value="Submit">Send email!</button>
+  </div>
+</footer>
+</html>
