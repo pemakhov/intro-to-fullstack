@@ -22,8 +22,11 @@ const friends = [
   },
 ];
 
+/* True if not default option is selected */
+let isSelected = false;
 /* Contains HTML of the selector before any option was chosen */
 const defaultSelectorHtml = '<div class="selection default">Select Friend<span></span></div>';
+const restoreDefaultHtml = '<div class="restore-default-bar bar-selector">Select Friend</div>';
 /* Contains HTML of currently chosen or default option */
 let selectorHtml = defaultSelectorHtml;
 /* Contains the option that was chosen the last time, or null */
@@ -35,8 +38,11 @@ let currentBar = null;
 const setOptions = (options) => {
   /* The container for options */
   let panel = '<div class="panel">';
+  if (isSelected) {
+    panel = panel.concat(restoreDefaultHtml);
+  }
   /* Wrap each bar into HTML tags */
-  const bars = friends.map((item) => '<div class="bar">'
+  const bars = friends.map((item) => '<div class="bar bar-selector">'
     .concat('<img class="avatar" src="').concat(item.avatarSrc).concat('"></img>')
     .concat(item.name).concat('</div>')
   );
@@ -56,22 +62,16 @@ const setSelector = (selector, options) => {
 $(document).ready(function() {
   /* Sets the selector (dropdown list of options) */
   setSelector($('#dropdown'), friends);
-  /* Toggle of the panel (list of options) */
+  /* Toggle the panel (list of options) */
   $('.selection').click(function() {
     $('.panel').slideToggle(500);
     /* Toggle the border color for folded and unfolded selector */
     $('#dropdown').toggleClass('active');
-    /* Toggle the background for folded and unfolded selector */
-    $('.bar').hover(function() {
-      $(this).css('background-color', '#eee');
-    }, function(){
-      $(this).css('background-color', 'white');
-    });
   });
   /* By default the slider is unfolded, so I make it folded */
   $('.panel').slideUp(0);
   /* Makes a bar selected: shovs it on the top */
-  $('.bar').click(function() {
+  $('.bar-selector').click(function() {
     selectorHtml = $(this).html();
     $('.panel').slideUp(500);
     $('.selection').html(`${selectorHtml}<span></span>`);
@@ -81,6 +81,14 @@ $(document).ready(function() {
       currentBar.removeClass('hidden');
     }
     currentBar = $(this);
+    console.log(`isSelected = ${isSelected}`);
+    console.log(currentBar.val());
+    console.log(defaultSelectorHtml);
+    if (currentBar.innerHTML === defaultSelectorHtml) {
+        isSelected = false;
+      } else {
+        isSelected = true;
+      }
     currentBar.addClass('hidden');
     /* Selection with class 'default' has light-grey color */
     $('.selection').removeClass('default');

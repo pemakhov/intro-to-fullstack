@@ -32,6 +32,7 @@ body {
 }
 
 .bar,
+.restore-default-bar,
 .selection {
   display: flex;
   align-items: center;
@@ -40,8 +41,14 @@ body {
   font-family: sans-serif;
 }
 
-.selection.default {
+.selection.default,
+.restore-default-bar {
   color: #aaa;
+}
+
+.bar:hover,
+.restore-default-bar:hover {
+  background-color: #eee;
 }
 
 .selection span {
@@ -58,11 +65,13 @@ body {
   content: "▴";
 }
 
-.bar {
+.bar,
+.restore-default-bar {
   border-bottom: 2px solid #eee;
 }
 
-.bar:first-child {
+.bar:first-child,
+.restore-default-bar:first-child {
   border-top: 2px solid #eee;
 }
 
