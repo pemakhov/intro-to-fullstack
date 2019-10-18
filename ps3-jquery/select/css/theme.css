@@ -1,3 +1,8 @@
+html, body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 body {
   padding-top: 5%;
 }
@@ -65,13 +70,12 @@ body {
   content: "▴";
 }
 
-.bar,
-.restore-default-bar {
+.bar {
   border-bottom: 2px solid #eee;
 }
 
-.bar:first-child,
-.restore-default-bar:first-child {
+.restore-default-bar,
+.panel .bar:nth-child(2) {
   border-top: 2px solid #eee;
 }
 
