@@ -11,8 +11,8 @@ const isNumberPattern = /^[0-9-]+$/;
 const isTimeHMSPattern = /^\d\d:[0-5]\d:[0-5]\d$/;
 const isValidDatePattern = /^(\d{4})-\d\d-\d\dT\d\d:\d\d(:\d\d$|$)/;
 const isBoardDimensionsPattern = /^\d+x\d+$/;
-const isURLPattern = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
-const isIPPattern = /(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/;
+const isURLPattern = /((https?:\/\/(www\.)?)|www\.)[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+const isIPPattern = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
 const isRegExPattern = /\/.+(\/(?=([gimsuy]|$)))([gimsuy]+|$)/;
 
 /* Tests if given matchingWord matches given pattern
@@ -245,23 +245,33 @@ const drawBoard = (dimensions) => {
 };
 
 /* --- 05 --- */
+/* Returns web link without 'http://' or 'https://' */
+const getLinkName = (link) => link.replace(/^https?:\/\//, '');
+
 /* Constructs the URL in HTML format.
  * Substracts the "http://" or "http://" part from the URL text.
  *  source - the source of the URL.
  */
-const makeLink = (source) => {
-  const link = source.trim();
-  const linkName = (link.startsWith('http')) ? link.substring(link.indexOf(':') + 3) : link;
-  console.log(link);
+const makeLink = (link) => {
+  const linkName = getLinkName(link);
   if (matchPattern(link, isURLPattern) || matchPattern(link, isIPPattern)) {
     return `<a href="${link}" target="_blank">${linkName}</a>, `;
   }
   return '';
 };
 
+/* Compares two URLs without mentioning protocol ('http') */
+const sortLinks = (link1, link2) => {
+  const name1 = getLinkName(link1);
+  const name2 = getLinkName(link2);
+  if (name1 < name2) return -1;
+  if (name1 > name2) return 1;
+  return 0;
+};
+
 /* Parses links and URLs, form HTML code for web-links and inserts them into HTML */
 const processURLAndIP = (linksList) => {
-  let data = linksList.split(',');
+  let data = linksList.split(',').map((link) => link.trim()).sort(sortLinks);
   data = data.map((link) => makeLink(link));
   const result = data.reduce((accumulator, link) => accumulator + link);
   document.getElementById('list-of-url-and-ip').innerHTML = result.substring(0, result.length - 2);
@@ -290,13 +300,6 @@ const makeRegEx = (phrase) => {
 /* Finds and highlights the input */
 const findMatches = (text = '', matchPhrase = '') => {
   let result = text.replace(/</g, '&lt').replace(/>/g, '&gt');
-  const regExPhrase = makeRegEx(matchPhrase);
-  const matched = result.split(regExPhrase);
-  for (let i = 0; i < matched.length; i += 1) {
-    if (regExPhrase.test(matched[i])) {
-      matched[i] = '<mark>'.concat(matched[i]).concat('</mark>');
-    }
-  }
-  result = matched.reduce((acc, elem) => acc.concat(elem));
+  result = result.replace(makeRegEx(matchPhrase), '<mark>$&</mark>');
   document.getElementById('marked-text').innerHTML = result;
 };

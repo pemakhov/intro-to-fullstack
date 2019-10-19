@@ -17,7 +17,7 @@
       <div class="input_caption">to</div>
       <input type="number" id="last_number" value="10" onfocus="this.value=''">
       <input type="button" value="Count!" onClick='putSum(getElementById("first_number").value, getElementById("last_number").value)'>
-      <div id="magic_sum" class="result">...</div>
+      <div id="magic_sum" class="result">...&nbsp&nbsp&nbsp</div>
     </div>
     <div class="block">
       <hr>
@@ -25,11 +25,11 @@
       <div>a. Convert seconds into hh:mm:ss format</div>
       <input type="number" id="seconds" value="9999" onfocus="this.value=''">
       <input type="button" value="Convert!" onClick='convertSeconds(getElementById("seconds").value)'>
-      <div id="formatted_time" class="result">...</div>
+      <div id="formatted_time" class="result">...&nbsp&nbsp&nbsp</div>
       <div>b. Count seconds. Input time in format hh:mm:ss</div>
       <input type="text" id="time" value="22:59:59" onfocus="this.value=''">
       <input type="button" value="Count!" onClick='putSeconds(getElementById("time").value)'>
-      <div id="counted_seconds" class="result">...</div>
+      <div id="counted_seconds" class="result">...&nbsp&nbsp&nbsp</div>
     </div>
     <div class="block">
       <hr>
@@ -39,7 +39,7 @@
       <input type="datetime-local" id="date_time_1" step="1">
       <input type="button" value="Count!" onClick='putTimePeriod(
       getElementById("date_time_0").value, getElementById("date_time_1").value)'>
-      <div id="time_between_dates" class="result">...</div>
+      <div id="time_between_dates" class="result">...&nbsp&nbsp&nbsp</div>
     </div>
     <div class="block">
       <hr>
@@ -62,7 +62,7 @@
       <textarea id="text-for-matches" rows="5" cols="30" placeholder="Input some text"></textarea>
       <input type="text" id="match-regex" placeholder="Input a phrase or a RegEx">
       <input type="button" value="Mark!" onClick='findMatches(getElementById("text-for-matches").value, getElementById("match-regex").value)'>
-      <div id="marked-text" class="result">...</div>
+      <div id="marked-text" class="result">...&nbsp&nbsp&nbsp</div>
     </div>
   </div>
 </body>
