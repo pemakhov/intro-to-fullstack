@@ -30,7 +30,7 @@ let selectorHtml = defaultSelectorHtml;
 /* Contains the option that was chosen the last time, or null */
 let currentBar = null;
 let currentBarIndex = '';
-let barId = 0;
+let barId = 1;
 
 /* Sets all options. Places them into a container ("panel"). Returns
 * container with options.
@@ -40,7 +40,7 @@ const setOptions = (options) => {
   let panel = `<div class="panel">`;
   panel = panel.concat(restoreDefaultHtml);
   /* Wrap each bar into HTML tags */
-  const bars = friends.map((item) => `<div id="bar${barId++}" class="bar bar-selector">`
+  const bars = options.map((item) => `<div id="bar${barId++}" class="bar bar-selector">`
     .concat('<img class="avatar" src="').concat(item.avatarSrc).concat('"></img>')
     .concat(item.name).concat('</div>')
   );
@@ -80,7 +80,7 @@ function clickOnBar() {
 };
 
 /* Toggle arrow direction and border color */
-function toggleArrow() {
+function toggleActive() {
   $('#dropdown').toggleClass('active');
 }
 
@@ -88,10 +88,12 @@ function toggleArrow() {
 /* Launches all functions when the document is ready */
 $(document).ready(function() {
   /* Sets the selector (dropdown list of options) */
-  setSelector($('#dropdown'), friends);
+  const $dropdown = $('#dropdown');
+  setSelector($dropdown, friends);
   /* Toggle the panel (list of options) */
   $('.selection').click(function() {
-    $('.panel').slideToggle(500, toggleArrow);
+    $('.panel').stop().slideToggle(500);
+    toggleActive();
   });
   /* By default the slider is unfolded, so I make it folded */
   $('.panel').slideUp(0);
@@ -99,12 +101,12 @@ $(document).ready(function() {
   $('.bar-selector').click(clickOnBar);
   /* Slide up at click somewhere in the window */
   $(window).click(function() {
-    if ($('#dropdown').hasClass('active')) {
-      $('.panel').slideUp(500, toggleArrow);
+    if ($dropdown.hasClass('active')) {
+      $('.panel').slideUp(500, toggleActive);
     }
   });
   /* Prevent undesired slideup at cklick inside the select */
-  $('#dropdown').click(function(event){
+  $dropdown.click(function(event){
     event.stopPropagation();
   });
 });
