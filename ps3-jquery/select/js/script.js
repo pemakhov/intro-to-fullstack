@@ -57,9 +57,10 @@ const setSelector = (selector, options) => {
 };
 
 function clickOnBar() {
+  const $selection = $('.selection');
   selectorHtml = $(this).html();
   $('.panel').slideUp(500);
-  $('.selection').html(`${selectorHtml}<span></span>`);
+  $selection.html(`${selectorHtml}<span></span>`);
   $('#dropdown').toggleClass('active');
   /* CurrentBar can be equal null before at least one option was selected */
   if (currentBar !== null) {
@@ -68,12 +69,12 @@ function clickOnBar() {
   currentBar = $(this);
   currentBarIndex = currentBar.attr('id');
   if (currentBarIndex === 'bar-0') {
-    $('.selection').html('Select Friend<span></span>');
+    $selection.html('Select Friend<span></span>');
     /* Selection with class 'default' has light-grey color */
-    $('.selection').addClass('default');
+    $selection.addClass('default');
   } else {
     isSelected = true;
-    $('.selection').removeClass('default');
+    $selection.removeClass('default');
     $('.restore-default-bar').removeClass('hidden');
   }
   currentBar.addClass('hidden');
@@ -87,7 +88,6 @@ function toggleActive() {
 
 /* Launches all functions when the document is ready */
 $(document).ready(function() {
-  /* Sets the selector (dropdown list of options) */
   const $dropdown = $('#dropdown');
   setSelector($dropdown, friends);
   /* Toggle the panel (list of options) */
