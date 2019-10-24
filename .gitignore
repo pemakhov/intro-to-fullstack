@@ -3,3 +3,5 @@
 /PS_1\ HTML_CSS/landing/layout.png
 assets/
 *.swp
+logs/
+*.idea
