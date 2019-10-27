@@ -1,60 +1,61 @@
 <?php
 
-class Uploader {
-    const TARGET_DIR = 'uploads/';
-    private $target_file;
-    private $uploadOk = 1;
+require_once 'Constants.php';
+
+/*
+ * Uploads a file in the destination directory and echoes a message about result.
+ */
+
+class Uploader implements Constants
+{
+    private $file;
+    private $tmpFilePath;
+    private $newFilePath;
     private $fileType;
 
-    function __construct($target_file) {
-        $this->target_file = self::TARGET_DIR . basename($_FILES['fileToUpload']['name']);
-        $this->fileType = strtolower(pathinfo($this->target_file, PATHINFO_EXTENSION));
+    function __construct($tmpFile) {
+        $this->file = $tmpFile;
+        $this->tmpFilePath = $tmpFile["tmp_name"];
+        $this->newFilePath = self::TARGET_DIR . basename($tmpFile['name']);
+        $this->fileType = strtolower(pathinfo($this->newFilePath, PATHINFO_EXTENSION));
+
+        if ($this->alreadyExists()) {
+            echo $this->formMessage("A file with name " .
+                $this->file["name"] . " already exists in the destination directory.");
+            return;
+        }
+
+        if ($this->isTooBig()) {
+            echo $this->formMessage("File is too big.");
+            return;
+        }
+
+        if (move_uploaded_file($this->tmpFilePath, $this->newFilePath)) {
+            echo $this->formMessage("The file " . $this->file["name"] . " has been uploaded.");
+        } else {
+            echo $this->formMessage("Sorry, there was an error uploading your file.");
+        }
+
     }
 
-    public function isImage() {
-
+    /*
+     * Checks if file with such name exists in the destination directory.
+     */
+    private function alreadyExists() {
+        return file_exists($this->newFilePath);
     }
-}
 
-$target_dir = 'uploads/';
-$target_file = $target_dir . basename($_FILES['fileToUpload']['name']);
-$uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-// Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
-    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-    if($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
-    } else {
-        echo "File is not an image.";
-        $uploadOk = 0;
+    /*
+     * Checks if
+     */
+    private function isTooBig() {
+        return $this->file['size'] > self::MAX_FILE_SIZE;
     }
-}
-// Check if file already exists
-if (file_exists($target_file)) {
-    echo "Sorry, file already exists.";
-    $uploadOk = 0;
-}
-// Check file size
-if ($_FILES["fileToUpload"]["size"] > 500000) {
-    echo "Sorry, your file is too large.";
-    $uploadOk = 0;
-}
-// Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-    && $imageFileType != "gif" ) {
-    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-    $uploadOk = 0;
-}
-// Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
-} else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
+
+    /*
+     * Puts a message into html tags.
+     */
+    private function formMessage($message) {
+        return '<div id="message">' . $message . '</div>';
     }
 }

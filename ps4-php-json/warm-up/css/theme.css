@@ -1,0 +1,97 @@
+:root {
+    --bg-color: #2d3436;
+    --main-color: #dfe6e9;
+    --accent-color: #00ff41;
+}
+
+html,
+body {
+    margin: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--main-color);
+}
+
+@font-face {
+    font-family: digital-7-mono;
+    src: url(../fonts/digital-7-mono.ttf)
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-weight: normal;
+    text-align: center;
+    color: var(--accent-color);
+    font-family: digital-7-mono, serif;
+    font-size: 5em;
+    margin: 0 0 0.5em;
+}
+
+.result {
+    color: var(--accent-color);
+}
+
+label,
+div {
+    font-size: 25px;
+}
+
+#message {
+    font-size: 1em;
+    font-style: oblique;
+    margin: 0.5em 0;
+}
+
+a {
+    color: var(--main-color);
+}
+
+a:hover {
+    color: var(--main-color);
+    text-decoration: none;
+}
+
+input[type=file] {
+    border: solid 1px var(--main-color);
+}
+
+ul {
+    margin: 0;
+}
+
+/* Chess board style */
+
+.board__row,
+.board__cell {
+    margin: 0;
+    padding: 0;
+}
+
+.board {
+    border: 1px solid var(--main-color);
+    display: block;
+    margin: 1em auto;
+}
+
+.board__row {
+    display: flex;
+}
+
+.board__cell {
+    width: 20px;
+    height: 20px;
+}
+
+.board__cell--light {
+    background-color: var(--main-color);
+}
+
+/* End of chess board style */
