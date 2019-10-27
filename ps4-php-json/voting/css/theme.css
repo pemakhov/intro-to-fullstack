@@ -1,0 +1,12 @@
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: flex;
+}
+
+input[type=radio] {
+    order: -1;
+}
