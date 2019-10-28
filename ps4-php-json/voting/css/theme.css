@@ -32,16 +32,16 @@ form {
 
 label {
     display: flex;
-    font-size: 20px;
+    font-size: 22px;
     margin: 5px 0 5px 90px;
     cursor: pointer;
-    font-family: 'Courier', sans-serif;
+    font-family: 'Electrolize', sans-serif;
 }
 
 input[type=radio] {
     order: -1;
     cursor: pointer;
-    margin: 4px 10px 0 3px;
+    margin: 6px 10px 0 3px;
 }
 
 input[type=submit] {
