@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
+<h1>Which is the best day of the week?</h1>
 <div class="wrapper">
-    <h1>Which is the best day of a week?</h1>
     <form action="results.php">
         <label>Sunday
             <input type="radio" name="day" value="Sunday">
