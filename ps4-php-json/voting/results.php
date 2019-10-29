@@ -55,6 +55,7 @@ function processVote() {
 ?>
 
 <head>
+    <link rel="stylesheet" href="css/result-theme.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {packages: ['corechart']});
@@ -93,7 +94,7 @@ function processVote() {
     </script>
 </head>
 <body>
-<div><?= $_SESSION['message']; ?></div>
+<div class="message"><?= $_SESSION['message']; ?></div>
 
 
 
