@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 function getFileContent($fName)
 {
     $file = fopen($fName, 'r+') or die('Unable to open file.');
@@ -7,11 +10,29 @@ function getFileContent($fName)
     return $txt;
 }
 
-if (isset($_POST['day'])) {
+function writeToFile($txt, $fName) {
+    $file = fopen($fName, 'w+') or die('Unable to open file.');
+    fwrite($file, $txt);
+    fclose($file);
+}
+
+function processVote() {
+    if (!isset($_POST['day'])) {
+        return '';
+    }
     $choice = $_POST['day'];
+    $oldChoice = '';
+    $_SESSION['message'] = '';
     $fName = 'vote-base.json';
     if (file_exists($fName) && filesize($fName) > 0) {
         $txt = getFileContent($fName);
+        if (isset($_SESSION['choice'])) {
+          $oldChoice = $_SESSION['choice'];
+          if ($oldChoice === $choice) {
+            $_SESSION['message'] = 'You have already voted for this option.';
+            return $txt;
+          }
+        }
         $json = json_decode($txt, true);
         if (!array_key_exists($choice, $json)) {
             $json[$choice] = 0;
@@ -20,11 +41,16 @@ if (isset($_POST['day'])) {
         $json[$choice] = 0;
     }
     $json[$choice] += 1;
+    if ($oldChoice !== '') {
+        $json[$oldChoice] -= 1;
+        $_SESSION['message'] = 'Your vote was updated.';
+    }
     $txt = json_encode($json, true);
-    $file = fopen($fName, 'w+') or die('Unable to open file.');
-    fwrite($file, $txt);
-    fclose($file);
+    writeToFile($txt, $fName);
+    $_SESSION['choice'] = $choice;
+    return $txt;
 }
+
 ?>
 
 <head>
@@ -47,7 +73,8 @@ if (isset($_POST['day'])) {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Element');
             data.addColumn('number', 'Percentage');
-            data.addRows(jsonToArray(JSON.parse('<?= $txt ?>')));
+            data.addRows(jsonToArray(JSON.parse('<?= processVote(); ?>')));
+
             
 
             var options = {
@@ -65,6 +92,7 @@ if (isset($_POST['day'])) {
     </script>
 </head>
 <body>
+<div><?= $_SESSION['message']; ?></div>
 
 
 

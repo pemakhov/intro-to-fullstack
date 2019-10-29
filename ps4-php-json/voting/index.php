@@ -25,8 +25,8 @@
         <label>Wednesday
             <input type="radio" name="day" value="Wednesday">
         </label>
-        <label>Tursday
-            <input type="radio" name="day" value="Tursday">
+        <label>Thursday
+            <input type="radio" name="day" value="Thursday">
         </label>
         <label>Friday
             <input type="radio" name="day" value="Friday">
