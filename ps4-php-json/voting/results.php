@@ -18,6 +18,7 @@ function writeToFile($txt, $fName) {
 
 function processVote() {
     if (!isset($_POST['day'])) {
+        $_SESSION['message'] = 'Something went wrong.';
         return '';
     }
     $choice = $_POST['day'];
