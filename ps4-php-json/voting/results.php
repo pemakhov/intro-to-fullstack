@@ -33,24 +33,34 @@ if (isset($_POST['day'])) {
         google.charts.load('current', {packages: ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
 
+        // Transform json into array
+        function jsonToArray(json) {
+          let result = [];
+          for (let i in json){
+            result.push([i, json[i]]);
+          }
+          return result;
+        }
+
         function drawChart() {
             // Define the chart to be drawn.
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Element');
             data.addColumn('number', 'Percentage');
-            data.addRows([
-                ['Sunday', 55],
-                ['Monday', 11],
-                ['Tuesday', 22],
-                ['Wednesday', 101],
-                ['Thursday', 44],
-                ['Friday', 77],
-                ['Saturday', 66]
-            ]);
+            data.addRows(jsonToArray(JSON.parse('<?= $txt ?>')));
+            
+
+            var options = {
+                title: 'The best day of the week',
+                /* legend: 'none', */
+                pieSliceText: 'percentage',
+                slices: {  2: {offset: 0.2},
+                },
+            };
 
             // Instantiate and draw the chart.
             var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
-            chart.draw(data, null);
+            chart.draw(data, options);
         }
     </script>
 </head>
