@@ -134,8 +134,13 @@ const ATM = {
     },
     // log out
     logout() {
+        if (!this.isAuth) {
+            console.log("You are not authorized.");
+            return;
+        }
         this.isAuth = false;
         this.currentUser = {};
+        console.log("Good bye.");
         this.logs.unshift("User (" + this.currentUser.type + ") with id " + this.currentUser.id + " logged out.");
     },
 };
