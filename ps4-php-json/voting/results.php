@@ -2,6 +2,7 @@
 
 session_start();
 
+/* Opens file for reading, reads and returns its content */
 function getFileContent($fName)
 {
     $file = fopen($fName, 'r+') or die('Unable to open file.');
@@ -10,6 +11,7 @@ function getFileContent($fName)
     return $txt;
 }
 
+/* Opens file for writing, replaces its content */
 function writeToFile($txt, $fName) {
     $file = fopen($fName, 'w+') or die('Unable to open file.');
     fwrite($file, $txt);
@@ -44,7 +46,9 @@ function processVote() {
     $json[$choice] += 1;
     if ($oldChoice !== '') {
         $json[$oldChoice] -= 1;
-        $_SESSION['message'] = 'Your vote was updated.';
+        $_SESSION['message'] = 'Your vote has been updated.';
+    } else {
+        $_SESSION['message'] = 'Your vote has been counted.';
     }
     $txt = json_encode($json, true);
     writeToFile($txt, $fName);
@@ -77,13 +81,20 @@ function processVote() {
             data.addColumn('number', 'Percentage');
             data.addRows(jsonToArray(JSON.parse('<?= processVote(); ?>')));
 
-            
+
 
             var options = {
                 title: 'The best day of the week',
+                titleTextStyle: {
+                    color: '#c7c6c5',
+                    fontSize: 24,
+                },
                 /* legend: 'none', */
                 pieSliceText: 'percentage',
-                slices: {  2: {offset: 0.2},
+                backgroundColor: 'transparent',
+                legend: {textStyle: {color: '#c7c6c5'}},
+                slices: {
+                    0: {offset: 0.2},
                 },
             };
 
@@ -94,10 +105,11 @@ function processVote() {
     </script>
 </head>
 <body>
-<div class="message"><?= $_SESSION['message']; ?></div>
+<div id="message" class="message"><?= $_SESSION['message']; ?></div>
 
 
 
 <!-- Identify where the chart should be drawn. -->
-<div id="myPieChart" style="width: 1024px; height: 800px; margin: 0 auto;"/>
+<div id="myPieChart"/>
+<script src="js/script.js"></script>
 </body>

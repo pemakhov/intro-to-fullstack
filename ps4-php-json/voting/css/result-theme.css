@@ -1,8 +1,27 @@
+:root {
+    --bg-color: #1a1a1d;
+    --main-color: #c7c6c5;
+    --accent-color: #c3073f;
+}
+
+html,
+body,
+#myPieChart div {
+    background-color: var(--bg-color);
+}
+
 .message {
+    color: var(--main-color);
     display: block;
     float: left;
     padding: 10px;
     font-size: 20px;
-    border: 2px solid red;
+    border: 2px solid var(--accent-color);
     border-radius: 10px;
+}
+
+#myPieChart {
+    width: 1024px;
+    height: 800px;
+    margin: 0 auto;
 }
