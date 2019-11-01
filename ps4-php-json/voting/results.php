@@ -23,33 +23,43 @@ function processVote() {
         $_SESSION['message'] = 'Something went wrong.';
         return '';
     }
+
     $choice = $_POST['day'];
     $oldChoice = '';
-    $_SESSION['message'] = '';
     $fName = 'vote-base.json';
+    $_SESSION['message'] = '';
+
+    if (isset($_SESSION['choice'])) {
+      $oldChoice = $_SESSION['choice'];
+    }
+
     if (file_exists($fName) && filesize($fName) > 0) {
         $txt = getFileContent($fName);
-        if (isset($_SESSION['choice'])) {
-          $oldChoice = $_SESSION['choice'];
-          if ($oldChoice === $choice) {
-            $_SESSION['message'] = 'You have already voted for this option.';
-            return $txt;
-          }
-        }
         $json = json_decode($txt, true);
-        if (!array_key_exists($choice, $json)) {
-            $json[$choice] = 0;
-        }
     } else {
+        $json = [];
+        $oldChoice = '';
+    }
+
+    /* When user voted for the same options once again */
+    if ($oldChoice === $choice && strlen($oldChoice) > 0) {
+      $_SESSION['message'] = 'You have already voted for this option.';
+      return $txt;
+    }
+
+    if (!array_key_exists($choice, $json)) {
         $json[$choice] = 0;
     }
+
     $json[$choice] += 1;
+
     if ($oldChoice !== '') {
         $json[$oldChoice] -= 1;
         $_SESSION['message'] = 'Your vote has been updated.';
     } else {
         $_SESSION['message'] = 'Your vote has been counted.';
     }
+
     $txt = json_encode($json, true);
     writeToFile($txt, $fName);
     $_SESSION['choice'] = $choice;
@@ -94,7 +104,8 @@ function processVote() {
                 backgroundColor: 'transparent',
                 legend: {textStyle: {color: '#c7c6c5'}},
                 slices: {
-                    0: {offset: 0.2},
+                    4: {offset: 0.2},
+                    6: {offset: 0.2},
                 },
             };
 
@@ -108,8 +119,8 @@ function processVote() {
 <div id="message" class="message"><?= $_SESSION['message']; ?></div>
 
 
-
 <!-- Identify where the chart should be drawn. -->
 <div id="myPieChart"/>
+<div id="message" class="message"><?= $_SESSION['message']; ?></div>
 <script src="js/script.js"></script>
 </body>

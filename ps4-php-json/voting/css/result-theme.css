@@ -11,6 +11,9 @@ body,
 }
 
 .message {
+    position: absolute;
+    z-index: 5;
+    cursor: pointer;
     color: var(--main-color);
     display: block;
     float: left;
@@ -18,6 +21,12 @@ body,
     font-size: 20px;
     border: 2px solid var(--accent-color);
     border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+.message:hover {
+    background-color: var(--accent-color);
+    transition: background-color 0.3s;
 }
 
 #myPieChart {
