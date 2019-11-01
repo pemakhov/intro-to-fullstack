@@ -121,6 +121,5 @@ function processVote() {
 
 <!-- Identify where the chart should be drawn. -->
 <div id="myPieChart"/>
-<div id="message" class="message"><?= $_SESSION['message']; ?></div>
 <script src="js/script.js"></script>
 </body>
