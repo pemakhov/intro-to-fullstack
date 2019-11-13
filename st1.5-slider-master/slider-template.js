@@ -17,6 +17,10 @@ const getPreviewHtml = () => {
         + ending + '" alt="' + (alt++) + '"></li>');
 };
 
+const smallSrcIntoBig = (src) => {
+    return src.replace(SMALL_SIZE, BIG_SIZE);
+};
+
 $(document).ready(function () {
     const $previewContainer = $('.slider-previews');
     const previewListHtml = getPreviewHtml();
@@ -24,11 +28,9 @@ $(document).ready(function () {
         $previewContainer.append(item);
     }
 
-    console.log($('.slider-current img'));
     let currentImageSrc = $('.slider-current img');
-    $previewContainer.click(function () {
-        $newSrc = $(this).attr('src');
-        currentImageSrc.attr('src', $newSrc);
+    let $currentPrev = $('.preview');
+    $currentPrev.click(function () {
+        currentImageSrc.attr('src', smallSrcIntoBig($(this).attr('src')));
     });
-
 });
