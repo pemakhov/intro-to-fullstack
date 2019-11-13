@@ -84,6 +84,7 @@ const ATM = {
             return;
         }
         this.currentUser.debet += amount;
+        this.cash += amount;
         this.logs.unshift("User with id " + this.currentUser.id + " put $" + amount +
             " on his balance.");
         console.log("Operation is successful.");
