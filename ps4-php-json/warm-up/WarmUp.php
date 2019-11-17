@@ -169,7 +169,7 @@ class WarmUp
     public function printTextStatistics($text)
     {
         preg_match_all('/[\n]/', $text, $rows);
-        preg_match_all('/\w/u', $text, $letters);
+        preg_match_all('/[^\s]/u', $text, $letters);
         preg_match_all('/\s[^\r\n]/', $text, $spaces);
 
         echo 'Rows: <span class="result">' . (sizeof($rows[0]) + 1) . '</span><br>';

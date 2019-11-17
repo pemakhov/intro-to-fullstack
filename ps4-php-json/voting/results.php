@@ -75,23 +75,12 @@ function processVote() {
         google.charts.load('current', {packages: ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
 
-        // Transform json into array
-        function jsonToArray(json) {
-          let result = [];
-          for (let i in json){
-            result.push([i, json[i]]);
-          }
-          return result;
-        }
-
         function drawChart() {
             // Define the chart to be drawn.
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Element');
             data.addColumn('number', 'Percentage');
-            data.addRows(jsonToArray(JSON.parse('<?= processVote(); ?>')));
-
-
+            data.addRows(Object.entries(JSON.parse('<?= processVote(); ?>')));
 
             var options = {
                 title: 'The best day of the week',
