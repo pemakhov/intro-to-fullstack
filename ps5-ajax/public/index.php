@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+/* The directory containing php files */
+const APP_DIR = '../app/';
+
+include_once APP_DIR . 'ContentManager.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -15,24 +21,12 @@
 <body>
 <div class="spectrum"></div>
 <div class="title">Easy Chat</div>
-<!--<div class="login-form">-->
-<!--    <form>-->
-<!--        <label for="name">Enter your name</label>-->
-<!--        <input type="text" id="name">-->
-<!--        <label for="pass">Enter yor password</label>-->
-<!--        <input type="password" id="pass">-->
-<!--        <input type="submit">-->
-<!--        <div class="shadow"></div>-->
-<!--    </form>-->
-<!--</div>-->
-<div class="chat">
-    <div class="chat__messages"></div>
-    <input type="text">
-    <input type="submit" class="chat__submit" value="Send">
-
+<div class="container">
+    <?php ContentManager::getContent(); ?>
 </div>
 
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <script src="js/spectrum.js"></script>
+<script src="<?php print ContentManager::getScriptPath() ?>"></script>
 </body>
 </html>

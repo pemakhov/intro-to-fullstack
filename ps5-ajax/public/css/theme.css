@@ -109,6 +109,25 @@ input[type="submit"].chat__submit {
     margin: 0;
 }
 
+a.log-out,
+a.log-out:visited {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    font-family: "Montserrat", serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fffecd;
+}
+
+.invalid-input {
+    border: red 1px solid;
+}
+
+a.log-out:hover {
+    text-decoration: none;
+}
+
 .darkGrayBg {
     background-color: #635960;
 }
