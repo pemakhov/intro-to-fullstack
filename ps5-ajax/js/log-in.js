@@ -45,10 +45,14 @@ $(document).ready(function () {
         if (!isValidInput($name, $pass)) {
             return;
         }
-        $.ajax({
-            url: "content/chat.php", success: function (result) {
-                $('.container').html(result);
-            }
-        })
+        const data = {name: $name.val(), pass: $pass.val()};
+        $.post('app/user-manager.php', data, function (result) {
+            console.log(result);
+        });
+        // $.ajax({
+        //     url: "content/chat.php", success: function (data) {
+        //         $('.container').html(result);
+        //     }
+        // })
     });
 });

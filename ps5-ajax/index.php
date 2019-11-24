@@ -1,10 +1,7 @@
 <?php
 session_start();
 
-/* The directory containing php files */
-const APP_DIR = '../app/';
-
-include_once APP_DIR . 'ContentManager.php';
+include_once 'app/ContentManager.php';
 ?>
 <!doctype html>
 <html lang="en">

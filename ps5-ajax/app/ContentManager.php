@@ -5,7 +5,7 @@
 class ContentManager
 {
     /* The path to content */
-    const CONTENT_DIR = '../public/content/';
+    const CONTENT_DIR = 'content/';
 
     /* Returns proper content for the page */
     public static function getContent()
