@@ -1,8 +1,7 @@
 <?php
-session_start();
-
-include_once 'app/ContentManager.php';
+include_once '../app/ContentManager.php';
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>

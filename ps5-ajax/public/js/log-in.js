@@ -1,7 +1,10 @@
+const MAX_NAME_AND_PASS_LENGTH = 24;
+let userName = '';
+
 /* Validates input on typing */
 const validateOnType = (input) => {
     input.keyup(() => {
-        if (input.length > 0) {
+        if (input.length > 0 || input.length <= MAX_NAME_AND_PASS_LENGTH) {
             input.removeClass('invalid-input');
         } else {
             input.addClass('invalid-input');
@@ -46,8 +49,17 @@ $(document).ready(function () {
             return;
         }
         const data = {name: $name.val(), pass: $pass.val()};
-        $.post('app/user-manager.php', data, function (result) {
+        $.post('index.php', data, function (result) {
             console.log(result);
+            if (result[0].length > 0 || result[1].length > 0) {
+                $("label[for='name'] span").html(result[0]);
+                $("label[for='pass'] span").html(result[1]);
+                return;
+            }
+            if ($name.val() !== result[2]) {
+                $("label[for='name'] span").html('A very strange error');
+            }
+            userName = result[2];
         });
         // $.ajax({
         //     url: "content/chat.php", success: function (data) {
