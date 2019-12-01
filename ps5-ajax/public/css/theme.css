@@ -124,6 +124,12 @@ a.log-out:visited {
     border: red 1px solid;
 }
 
+.alarm {
+    color: red;
+    display: block;
+    font-size: 12px;
+}
+
 a.log-out:hover {
     text-decoration: none;
 }

@@ -1,121 +1,65 @@
 <?php
 
-/* The class creating a json file with user data,
- * writing login data in it, then appending info data.
- */
+ /* The class managing users */
 
 class UserManager
 {
     /* The directory path where users data is stored */
-    const DIR_NAME = '../data/';
-    /* User's e-mail */
-    private $userName;
-    /* File name, generated from user's email */
-    private $fName;
+    const FILE_PATH = '../data/users.json';
 
-    function __construct($name)
+    /* Indicates that user name is ready for usage */
+    public $isReady = false;
+
+    function __construct($name, $pass)
     {
-        if (!isset($_POST) || sizeof($_POST) === 0) {
+        if (filesize(self::FILE_PATH) > 0) {
+            $dataBase = $this->getDataBase();
+            $user = $this->getUser($name, $dataBase);
+            if ($user !== null) {
+                $this->isReady = $user['pass'] == $pass;
+                return;
+            }
+            $this->isReady = true;
+            $this->appendUser($dataBase, array('name' => $name, 'pass' => $pass));
             return;
         }
-
-        /* Create user and write first part of data */
-        if (isset($_POST['email'], $_POST['password'])) {
-
-            $this->makeUserDataFile();
-            return;
-        }
-        if (isset($_SESSION['email']) && sizeof($_POST) > 0) {
-            $this->appendUserDataFile();
-        }
+        $this->appendUser(array(), array('name' => $name, 'pass' => $pass));
+        $this->isReady = true;
     }
 
-    /* Creates a file with user's login data (email and password).
-     * If file-name already exists, creates a correspondent message
-     * in $_POST['invEmailMessage'].
-     */
-    function makeUserDataFile()
+    /* Opens file for reading, reads, decodes and returns json */
+    function getDataBase()
     {
-        if (!isset($_SESSION['invEmailMessage'], $_SESSION['invPassMessage'])) {
-            return;
-        }
-        if (strlen($_SESSION['invEmailMessage']) > 0 || strlen($_SESSION['invPassMessage']) > 0) {
-            return;
-        }
-
-        $this->email = $_POST['email'];
-        $this->existingFNames = $this->getFileNames();
-        $this->fName = $this->makeFName($this->email);
-
-        if (in_array($this->fName, $this->existingFNames)) {
-            $_SESSION['invEmailMessage'] = 'User with this email already exists';
-            return;
-        }
-        $this->user = $this->addUserProperties(new stdClass());
-        $this->writeToFile(json_encode($this->user), $this->fName);
-        $_SESSION['email'] = $this->email;
-    }
-
-    /* Appends user info into data file */
-    function appendUserDataFile()
-    {
-        if (!isset($_SESSION['invNameMessage'],
-            $_SESSION['invHouseMessage'],
-            $_SESSION['invHobbiesMessage'])) {
-            return;
-        }
-        if (strlen($_SESSION['invNameMessage']) > 0 &&
-            strlen($_SESSION['invHouseMessage']) > 0 &&
-            strlen($_SESSION['invHobbiesMessage']) > 0) {
-            return;
-        }
-        $this->fName = $this->makeFName($_SESSION['email']);
-        $this->user = json_decode($this->getFileContent($this->fName));
-        $this->user = $this->addUserProperties($this->user);
-        $this->writeToFile(json_encode($this->user), $this->fName);
-    }
-
-
-    /* Opens file for reading, reads and returns its content */
-    function getFileContent($fName)
-    {
-        $fPath = self::DIR_NAME . $fName;
-        $file = fopen($fPath, 'r+') or die('Unable to open file.');
-        $txt = fread($file, filesize($fPath));
+        $file = fopen(self::FILE_PATH, 'r') or die('Unable to open file.');
+        $txt = fread($file, filesize(self::FILE_PATH));
         fclose($file);
-        return $txt;
+        return json_decode($txt, true);
     }
+
+    /* Finds and returns a user by name. Returns null if found nothing */
+    function getUser($name, $data)
+    {
+        foreach ($data as $obj) {
+            if ($obj['name'] == $name) {
+                return $obj;
+            }
+        }
+        return null;
+    }
+
+    /* Appends user info into database array */
+    function appendUser($dataBase, $user)
+    {
+        array_push($dataBase, $user);
+        $this->writeToFile(json_encode($dataBase));
+    }
+
 
     /* Opens file for writing, replaces its content */
-    function writeToFile($txt, $fName)
+    function writeToFile($dataBase)
     {
-        $fPath = self::DIR_NAME . $fName;
-        $file = fopen($fPath, 'w+') or die('Unable to open file.');
-        fwrite($file, $txt);
+        $file = fopen(self::FILE_PATH, 'w') or die('Unable to open file.');
+        fwrite($file, $dataBase);
         fclose($file);
-    }
-
-    /* Creates a file name from user's email.
-     * Replaces all file system forbidden characters with "-".
-     * Adds ".json" extension. Returns file name.
-     */
-    function makeFName($email)
-    {
-        return (preg_replace('/[^A-Za-z0-9\-@._]/', '-', $email)) . '.json';
-    }
-
-    /* Adds user properties stored in $_POST into $this->user object */
-    function addUserProperties($user)
-    {
-        foreach ($_POST as $key => $value) {
-            $user->$key = $value;
-        }
-        return $user;
-    }
-
-    /* Returns the names of all files in the DIR_NAME directory. */
-    private function getFileNames()
-    {
-        return scandir(self::DIR_NAME);
     }
 }

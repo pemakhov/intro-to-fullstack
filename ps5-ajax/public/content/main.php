@@ -1,5 +1,13 @@
 <?php
-include_once '../app/ContentManager.php';
+/* Returns proper content for the page */
+function getContent()
+{
+    if (isset($_SESSION['userName']) && strlen($_SESSION['userName']) > 0) {
+        return include_once "chat.php";
+    }
+    return include_once "login-form.php";
+}
+
 ?>
 
 <!doctype html>
@@ -13,16 +21,16 @@ include_once '../app/ContentManager.php';
     <link type="text/css" href="https://fonts.googleapis.com/css?family=Pacifico|Montserrat&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="css/theme.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 <div class="spectrum"></div>
 <div class="title">Easy Chat</div>
 <div class="container">
-    <?php ContentManager::getContent(); ?>
+    <?php getContent(); ?>
 </div>
 
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <script src="js/spectrum.js"></script>
-<script src="<?php print ContentManager::getScriptPath() ?>"></script>
+<script src="js/login.js"></script>
 </body>
 </html>
