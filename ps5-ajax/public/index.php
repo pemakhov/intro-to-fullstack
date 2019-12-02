@@ -9,7 +9,7 @@ function main() {
         return true;
     }
 
-    if (isset($_POST['message'])) {
+    if (isset($_POST['newPost'])) {
         include_once '../app/Chat.php';
         $newMessage = array();
         array_push($newMessage, $_POST['time'], $_POST['userName'], $_POST['message']);
