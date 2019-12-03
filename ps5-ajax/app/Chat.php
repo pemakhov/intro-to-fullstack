@@ -4,7 +4,7 @@
 class Chat
 {
     const FILE_PATH = '../data/messages.json';
-    const SECONDS_IN_HOUR = 3600;
+    const RECENT_PERIOD = 3600000;
     public $logs;
 
     function __construct()
@@ -14,20 +14,20 @@ class Chat
 
     public function getRecentMessages()
     {
-        $time = time();
-        $firstHourMessageIndex = 0;
+        $time = round(microtime(true) * 1000);
+        $firstHourMessageIndex = -1;
         $counter = 0;
         foreach ($this->logs as $message) {
-            if (($time - $message['time']) < self::SECONDS_IN_HOUR) {
+            if (($time - $message['time']) < self::RECENT_PERIOD) {
                 $firstHourMessageIndex = $counter;
                 break;
             }
             $counter++;
         }
         if ($firstHourMessageIndex < 0) {
-            return array();
+            return '[]';
         }
-        return json_encode(array_slice($this->logs, $firstHourMessageIndex));
+        return array_slice($this->logs, $firstHourMessageIndex);
     }
 
     private function getLogs()

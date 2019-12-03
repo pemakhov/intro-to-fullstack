@@ -1,54 +1,60 @@
 const chat = {
     userName: '',
     postLifeTerm: 3600000, // one hour
-    removeOldPostsTerm: 3600, // one minute
+    removeOldPostsTerm: 60000, // one minute
     refreshPause: 1000, // one second
     postNumber: 0,
     posts: [],
-    /* Sends last information of the posts number on the server
-     * and receives the array with new number of posts in
+    /* Pulls the array with new number of posts in
      * first cell and new posts.
      */
     pullNewPosts(postNumber) {
+        let that = this;
         $.post('index.php', {pullPosts: postNumber}, function (result) {
-            if (result[0] === this.postNumber) {
+            result = JSON.parse(result);
+            if (result[0] === that.postNumber) {
                 return;
             }
-            this.postNumber = result.shift();
-            this.posts = this.posts.concat(result);
+            that.postNumber = result.shift();
+            that.posts = result;
         });
     },
 
     publishNewPosts() {
         const reducer = (acc, curVal) => acc.concat(curVal);
         $('.chat__messages').html(
-            posts.map(post => `<span class="time">${post.time} </span>` +
-                `<span class="author">${post.author}</span>` +
-                `<span class="message">${post.message}</span>`
+            this.posts.map(post => `<div class="post">` +
+                `<span class="time">${post.time} </span>` +
+                `<span class="author">${post.author} </span>` +
+                `<span class="message">${post.message}</span>` +
+                `</div>`
             ).reduce(reducer)
         )
     },
 
     getUserName() {
-        console.log(this);
+        let that = this;
         $.post('index.php', 'getName', function (result) {
-            console.log(result);
-            chat.userName = result;
+            that.userName = result;
         });
     },
 
     updateChat() {
-        this.pullNewPosts();
+        this.pullNewPosts(this.postNumber);
         if (this.posts.length > 0) {
             this.publishNewPosts();
         }
-        setTimeout(this.updateChat, this.refreshPause);
+        setTimeout(this.updateChat.bind(this), this.refreshPause);
     },
 
     removeOldPosts() {
+        setTimeout(this.removeOldPosts.bind(this), this.removeOldPostsTerm);
+        console.log('removing old posts');
+        if (this.posts.length === 0) {
+            return;
+        }
         const timeBorder = Date.now() - this.postLifeTerm;
-        this.posts = posts.filter(post => post.time > timeBorder);
-        setTimeout(this.removeOldPosts, this.removeOldPostsTerm);
+        this.posts = this.posts.filter(post => post.time > timeBorder);
     },
 
     makePost(message) {
@@ -63,7 +69,7 @@ const chat = {
         if ($userInput.length === 0) {
             return;
         }
-        const newPost = chat.makePost($userInput);
+        const newPost = this.makePost($userInput);
         $.post('index.php', newPost);
     }
 };
@@ -86,8 +92,8 @@ const listenChatSubmit = () => {
 
 $(document).ready(function () {
     chat.getUserName();
-    // chat.updateChat();
-    // chat.removeOldPosts();
+    chat.updateChat();
+    chat.removeOldPosts();
     listenLogOut();
     listenChatSubmit();
 });

@@ -9,13 +9,29 @@ function main() {
         return true;
     }
 
-    if (isset($_POST['newPost'])) {
+    if (isset($_POST['message'])) {
         include_once '../app/Chat.php';
-        $newMessage = array();
-        array_push($newMessage, $_POST['time'], $_POST['userName'], $_POST['message']);
         $chat = new Chat();
-        $chat->addMessage($newMessage);
+        $chat->addMessage($_POST);
         $chat->saveLogs();
+        $_SESSION['postNumber']++;
+        return true;
+    }
+
+    if (isset($_POST['pullPosts'])) {
+        if (!isset($_SESSION['postNumber'])) {
+            include_once '../app/Chat.php';
+            $chat = new Chat();
+            $_SESSION['postNumber'] = sizeof($chat->logs);
+        }
+        if ($_SESSION['postNumber'] === $_POST['pullPosts']) {
+            return true;
+        }
+        include_once '../app/Chat.php';
+        $chat = new Chat();
+        $result = $chat->getRecentMessages();
+        array_unshift($result, sizeof($chat->logs));
+        echo json_encode($result);
         return true;
     }
 
@@ -35,7 +51,6 @@ function main() {
     }
 
     if (isset($_POST['newWindow'])) {
-        include_once '../app/Chat.php';
         $chat = new Chat();
         echo $chat->getRecentMessages();
         return true;
