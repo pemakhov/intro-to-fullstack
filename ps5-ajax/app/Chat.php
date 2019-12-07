@@ -3,8 +3,11 @@
 
 class Chat
 {
+    /* Messages database file path. */
     const FILE_PATH = '../data/messages.json';
+    /* The period of time in milliseconds to withdraw posts. */
     const RECENT_PERIOD = 3600000;
+    /* The database of posts. */
     public $logs;
 
     function __construct()
@@ -12,24 +15,23 @@ class Chat
         $this->logs = $this->getLogs();
     }
 
-    public function getRecentMessages()
+    /* Returns the recent posts or the empty array. */
+    public function pullRecentPosts()
     {
-        $time = round(microtime(true) * 1000);
-        $firstHourMessageIndex = -1;
-        $counter = 0;
-        foreach ($this->logs as $message) {
-            if (($time - $message['time']) < self::RECENT_PERIOD) {
-                $firstHourMessageIndex = $counter;
-                break;
-            }
-            $counter++;
-        }
-        if ($firstHourMessageIndex < 0) {
-            return '[]';
-        }
-        return array_slice($this->logs, $firstHourMessageIndex);
+        $timeBorder = round(microtime(true) * 1000) - self::RECENT_PERIOD;
+        $result = array_filter($this->logs, function ($record) use ($timeBorder) {
+            return $record['time'] > $timeBorder;
+        });
+        return empty($result) ? [] : $result;
     }
 
+    /* Returns the new posts (newer than the $lastPostNumber). */
+    public function pullNewPosts($lastPostsNumber)
+    {
+        return array_slice($this->logs, $lastPostsNumber);
+    }
+
+    /* Returns the posts from the database file. */
     private function getLogs()
     {
         if (filesize(self::FILE_PATH) === 0) {
@@ -41,16 +43,18 @@ class Chat
         return json_decode($txt, true);
     }
 
+    /* Adds a new post into logs */
     public function addMessage($newMessage)
     {
+        $newMessage['message'] = strip_tags($newMessage['message']);
         array_push($this->logs, $newMessage);
     }
 
+    /* Saves logs into file. */
     public function saveLogs()
     {
         $file = fopen(self::FILE_PATH, 'w') or die('Unable to open file.');
         fwrite($file, json_encode($this->logs));
         fclose($file);
     }
-
 }

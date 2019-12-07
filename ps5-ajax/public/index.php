@@ -2,9 +2,10 @@
 session_start();
 main();
 
+/* Processes requests from user or returns the page. */
 function main() {
 
-    if (isset($_POST['getName'])) {
+    if (isset($_POST['get-name'])) {
         echo $_SESSION['userName'];
         return true;
     }
@@ -14,22 +15,34 @@ function main() {
         $chat = new Chat();
         $chat->addMessage($_POST);
         $chat->saveLogs();
-        $_SESSION['postNumber']++;
+        $_SESSION['postsNumber']++;
         return true;
     }
 
-    if (isset($_POST['pullPosts'])) {
-        if (!isset($_SESSION['postNumber'])) {
+    if (isset($_POST['pull-recent'])) {
+        include_once '../app/Chat.php';
+        $chat = new Chat();
+        $result = $chat->pullRecentPosts();
+        $postsNumber = sizeof($chat->logs);
+        array_unshift($result, $postsNumber);
+        $_SESSION['postsNumber'] = $postsNumber;
+        echo json_encode($result);
+        return true;
+    }
+
+    if (isset($_POST['pull-new'])) {
+        if (!isset($_SESSION['postsNumber'])) {
             include_once '../app/Chat.php';
             $chat = new Chat();
-            $_SESSION['postNumber'] = sizeof($chat->logs);
+            $_SESSION['postsNumber'] = sizeof($chat->logs);
         }
-        if ($_SESSION['postNumber'] === $_POST['pullPosts']) {
+        $lastPostsNumber = $_POST['pull-new'];
+        if ($_SESSION['postsNumber'] === $lastPostsNumber) {
             return true;
         }
         include_once '../app/Chat.php';
         $chat = new Chat();
-        $result = $chat->getRecentMessages();
+        $result = $chat->pullNewPosts($lastPostsNumber);
         array_unshift($result, sizeof($chat->logs));
         echo json_encode($result);
         return true;
@@ -52,13 +65,14 @@ function main() {
 
     if (isset($_POST['newWindow'])) {
         $chat = new Chat();
-        echo $chat->getRecentMessages();
+        echo $chat->pullRecentPosts();
         return true;
     }
 
     return include_once 'content/main.php';
 }
 
+/* Checks user input of name and password */
 function checkInput($name, $pass) {
     define("MAX_LENGTH", 24);
     $result = array('', '', '');
@@ -90,5 +104,4 @@ function checkInput($name, $pass) {
     }
     return $result;
 }
-
 

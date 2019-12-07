@@ -5,3 +5,4 @@ assets/
 *.swp
 logs/
 *.idea
+/nbproject/private/

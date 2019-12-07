@@ -102,6 +102,26 @@ input:-webkit-autofill {
     background-color: #fffecd;
     grid-column: 1/3;
     overflow-y: scroll;
+    padding: 0 10px;
+    font-family: Montserrat, serif;
+    color: #121302;
+}
+
+input[type="text"].chat__input {
+    color: #121302;
+}
+
+.chat__messages .post {
+    margin: 10px;
+}
+
+.post span.author {
+    font-weight: bold;
+}
+
+img.smile {
+    position: relative;
+    top: 2px;
 }
 
 input[type="submit"].chat__submit {

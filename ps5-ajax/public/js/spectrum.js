@@ -6,6 +6,7 @@ const classNames = [
     'aquamarineBg',
 ];
 
+/* Creates html for differently colored stripe */
 getSpectrum = () => {
     function reducer(acc, cur) {
         return acc + cur;
