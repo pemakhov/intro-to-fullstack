@@ -1,0 +1,429 @@
+@font-face {
+  font-family: "Black Jack";
+  src: url("../fonts/BLACKJAR.TTF");
+}
+.container {
+  height: 100%;
+  max-width: 960px;
+  min-width: 320px;
+  margin: 0 auto;
+}
+
+body {
+  position: relative;
+  font-family: "Montserrat", serif;
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  font-size: 38px;
+  font-weight: 100;
+}
+
+h2.on-light-bg {
+  color: #545454;
+}
+
+p {
+  margin-left: 10px;
+  margin-top: 30px;
+  font-size: 15px;
+  line-height: 24px;
+  color: #7f7f7f;
+}
+
+blockquote {
+  color: #424e5e;
+  border-left: #00aee0 solid 6px;
+  margin-left: 11px;
+  margin-top: 30px;
+  padding-left: 17px;
+  font-size: 15px;
+  font-style: italic;
+  line-height: 22px;
+}
+
+button {
+  font-size: 14px;
+  font-weight: bold;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 2px;
+  background-color: transparent;
+  text-decoration: none;
+  padding: 18px 23px;
+  cursor: pointer;
+}
+button:active {
+  outline-style: none;
+}
+button:focus {
+  outline-style: none;
+}
+button i {
+  margin-left: 10px;
+}
+
+strong {
+  font-style: italic;
+  font-weight: 900;
+}
+
+header {
+  color: white;
+  height: 650px;
+  background-image: url("../img/blue-pattern.jpg");
+  background-color: #4eacdd;
+  background-repeat: repeat;
+}
+header .container {
+  position: relative;
+  background-image: url("../img/iphone.png");
+  background-repeat: no-repeat;
+  background-position-x: 81px;
+  background-position-y: 382px;
+}
+header .container h1 {
+  font-family: "Black Jack", serif;
+  font-size: 70px;
+  font-weight: 100;
+  text-align: right;
+  margin: 61px 5px 0 10px;
+}
+header .container p {
+  color: white;
+  font-size: 30px;
+  line-height: 40px;
+  text-align: right;
+  margin: 33px 10px 0 10px;
+}
+header .container button {
+  margin: 46px 11px 0 10px;
+  float: right;
+  color: white;
+  border-color: white;
+}
+header .container button:hover {
+  color: #00c4ea;
+  background-color: white;
+}
+header .container button i {
+  margin-left: 10px;
+}
+@media screen and (max-width: 720px) {
+  header .container {
+    background-position-y: 550px;
+    background-position-x: center;
+  }
+  header .container h1, header .container p {
+    text-align: center;
+  }
+  header .container button {
+    margin: 46px auto 0;
+    float: none;
+    display: block;
+  }
+}
+header .container nav.icon {
+  position: absolute;
+  top: 39px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+header .container nav.icon .icon__bar {
+  margin: 0;
+  width: 100%;
+  height: 4px;
+  background-color: white;
+  border-radius: 2px;
+}
+header .container .logo {
+  font-family: "Kaushan Script", serif;
+  width: 100px;
+  height: 92px;
+  background-color: white;
+  text-align: center;
+  color: #0da9e5;
+  font-size: 50px;
+  padding-top: 8px;
+  border-bottom: #0da9e5 solid 4px;
+  box-shadow: 13px 11px #55c3ed;
+  margin: 0 10px;
+}
+header .container .logo a {
+  color: #0da9e5;
+  text-decoration: none;
+}
+header .container .logo a:hover {
+  text-decoration: none;
+}
+header .container .logo a:visited {
+  text-decoration: none;
+}
+
+section.intro {
+  height: 650px;
+  background-color: #f4f4f4;
+  background-image: url("../img/ipad.png");
+  background-repeat: no-repeat;
+  background-position-x: 83%;
+  background-position-y: 151px;
+}
+@media screen and (max-width: 1400px) {
+  section.intro {
+    background-position-x: 800px;
+  }
+}
+section.intro .container h2 {
+  margin: 140px 0 0 10px;
+}
+section.intro .container p {
+  display: block;
+  width: 55%;
+}
+section.intro .container blockquote {
+  width: 55%;
+}
+section.intro .container button {
+  margin: 57px 11px 0 10px;
+  color: #01b08f;
+  border-color: #01b08f;
+  padding-left: 30px;
+}
+section.intro .container button:hover {
+  color: white;
+  background-color: #01b08f;
+}
+section.intro .container button i {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+@media screen and (max-width: 720px) {
+  section.intro .container p, section.intro .container blockquote {
+    width: 90%;
+  }
+  section.intro .container h2 {
+    margin-top: 50px;
+  }
+}
+
+section.content {
+  height: 650px;
+  background-color: white;
+  background-image: url("../img/devices.png");
+  background-repeat: no-repeat;
+  background-position-x: 23%;
+  background-position-y: 273px;
+}
+@media screen and (max-width: 1500px) {
+  section.content {
+    background-position-x: center;
+    background-position-y: 450px;
+  }
+}
+section.content .container .container__box {
+  float: right;
+  width: 405px;
+  margin-top: 65px;
+}
+section.content .container p {
+  margin-left: 0;
+  margin-top: 24px;
+}
+section.content .container p.quote {
+  margin-top: 33px;
+  font-size: 15px;
+  line-height: 27px;
+  color: #424e5e;
+  font-style: italic;
+  font-weight: 900;
+}
+section.content .container button {
+  margin-top: 42px;
+  padding-left: 28px;
+  color: #ff4b8c;
+  border-color: #ff4b8c;
+}
+section.content .container button:hover {
+  color: white;
+  background-color: #ff4b8c;
+}
+section.content .container button i {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+@media screen and (max-width: 720px) {
+  section.content .container .container__box {
+    display: block;
+    float: none;
+    margin: 50px 10% 0 10%;
+  }
+  section.content .container button {
+    margin: 42px auto 0;
+  }
+}
+
+section.donation {
+  height: 326px;
+  min-width: 320px;
+  color: white;
+  background-color: #00c5b1;
+  background-image: url("../img/green-pattern.jpg");
+}
+section.donation .container {
+  height: 326px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+section.donation .container button {
+  margin-top: 30px;
+  color: white;
+  border-color: white;
+  padding: 18px 36px;
+}
+section.donation .container button:hover {
+  color: #00c5b1;
+  background-color: white;
+}
+section.donation .container button i {
+  margin-left: 10px;
+}
+section.donation .container h2 {
+  margin-top: 93px;
+  margin-bottom: 5px;
+}
+
+section.social {
+  height: 650px;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+section.social .social-icons {
+  display: flex;
+  margin-top: 242px;
+  justify-content: center;
+}
+section.social .social-icons .social-icons__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 17px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border-width: 3px;
+  border-style: solid;
+  border-color: #535353;
+  color: #535353;
+}
+section.social .social-icons .social-icons__icon a {
+  color: #535353;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+section.social .social-icons .social-icons__icon a:hover {
+  text-decoration: none;
+  color: #00c7ed;
+}
+section.social .social-icons .social-icons__icon a:visited {
+  text-decoration: none;
+}
+section.social label {
+  display: flex;
+  align-items: center;
+  margin-top: 67px;
+  font-style: italic;
+  font-weight: bold;
+  color: #7f7f7f;
+}
+section.social label input[type=email] {
+  border-style: none;
+  border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px;
+  width: 150px;
+  height: 43px;
+  margin-left: 30px;
+  padding: 0 20px;
+}
+section.social label input[type=email]:focus {
+  outline: none;
+}
+section.social label .input-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 43px;
+  background-color: white;
+  border-style: none;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+section.social label .input-icon .input-icon__inner {
+  border-left: #e9e9e9 solid 1px;
+}
+section.social label .input-icon .input-icon__inner i {
+  color: #00c7ed;
+  margin: 0 15px;
+}
+
+footer {
+  height: 100px;
+  min-width: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+footer p {
+  font-size: 12px;
+}
+footer p a {
+  color: #00c7ed;
+  text-decoration: none;
+}
+footer p a:hover {
+  text-decoration: underline;
+}
+@media screen and (max-width: 720px) {
+  footer {
+    justify-content: flex-start;
+  }
+}
+
+.scroll-up {
+  position: absolute;
+  right: 60px;
+  bottom: 30px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #535353;
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.scroll-up:hover {
+  color: #f4f4f4;
+  background-color: #535353;
+}
+@media screen and (max-width: 450px) {
+  .scroll-up {
+    position: static;
+    float: right;
+    margin: 20px auto;
+  }
+}
+
+/*# sourceMappingURL=theme.css.map */
