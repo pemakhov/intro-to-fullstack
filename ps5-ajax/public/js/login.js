@@ -52,7 +52,6 @@ const listenSubmitLogin = ($name, $pass) => {
                     $('.container').html(data);
                 }
             });
-            // $.getScript('js/chat.js');
         });
     });
 };

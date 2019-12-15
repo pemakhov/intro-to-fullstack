@@ -16,7 +16,7 @@ class UserManager
             $dataBase = $this->getDataBase();
             $user = $this->getUser($name, $dataBase);
             if ($user !== null) {
-                $this->isReady = $user['pass'] == $pass;
+                $this->isReady = $user['pass'] === $pass;
                 return;
             }
             $this->isReady = true;
@@ -40,7 +40,7 @@ class UserManager
     function getUser($name, $data)
     {
         foreach ($data as $obj) {
-            if ($obj['name'] == $name) {
+            if ($obj['name'] === $name) {
                 return $obj;
             }
         }

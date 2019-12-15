@@ -2,11 +2,6 @@
 const chat = {
     /* The current user's name */
     userName: '',
-    /* The term of freshness of the posts.
-     * Messages posted during this term will be
-     * pulled at reload or the first load
-     */
-    RECENT_TERM: 3600000,
     /* The period of update. */
     UPDATE_TERM: 1000,
     /* The period of update at active chatting. */
