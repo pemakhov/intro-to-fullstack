@@ -3,7 +3,8 @@ session_start();
 main();
 
 /* Processes requests from user or returns the page. */
-function main() {
+function main()
+{
 
     if (isset($_POST['get-name'])) {
         echo $_SESSION['userName'];
@@ -73,18 +74,18 @@ function main() {
 }
 
 /* Checks user input of name and password */
-function checkInput($name, $pass) {
-    define("MAX_LENGTH", 24);
+function checkInput($name, $pass)
+{
+    define("MAX_LENGTH", 50);
     $result = array('', '', '');
     $correctInput = true;
     include_once '../app/UserManager.php';
-    $user = new UserManager($name, $pass);
     if (strlen($name) < 1) {
         $result[0] = 'Please, enter a name';
         $correctInput = false;
     }
     if (strlen($name) >= MAX_LENGTH) {
-        $result[0] = 'The name is too long';
+        $result[0] = 'Max length of name is ' . MAX_LENGTH . ' symbols';
         $correctInput = false;
     }
     if (strlen($pass) < 1) {
@@ -92,12 +93,19 @@ function checkInput($name, $pass) {
         $correctInput = false;
     }
     if (strlen($pass) >= MAX_LENGTH) {
-        $result[1] = 'The password is too long';
+        $result[1] = 'Max length of password is ' . MAX_LENGTH . ' symbols';
         $correctInput = false;
     }
-    if (!$user->isReady) {
-        $result[1] = 'Wrong password';
+    if ($name != strip_tags($name)) {
+        $result[1] = 'HTML tags are not allowed';
         $correctInput = false;
+    }
+    if ($correctInput) {
+        $user = new UserManager($name, $pass);
+        if (!$user->isReady) {
+            $result[1] = 'Wrong password';
+            $correctInput = false;
+        }
     }
     if ($correctInput) {
         $result[2] = $name;
