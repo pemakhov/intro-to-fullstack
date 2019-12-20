@@ -12,10 +12,14 @@ function main()
     }
 
     if (isset($_POST['message'])) {
+        if (!isset($_SESSION['userName']) || count($_SESSION['userName']) < 1) {
+            /* This is a protection from posting by unauthenticated users */
+            return false;
+        }
         include_once '../app/Chat.php';
         $chat = new Chat();
         $chat->addMessage($_POST);
-        $chat->saveLogs();
+        $chat->saveMessages();
         $_SESSION['postsNumber']++;
         return true;
     }
@@ -24,7 +28,7 @@ function main()
         include_once '../app/Chat.php';
         $chat = new Chat();
         $result = $chat->pullRecentPosts();
-        $postsNumber = sizeof($chat->logs);
+        $postsNumber = sizeof($chat->messages);
         array_unshift($result, $postsNumber);
         $_SESSION['postsNumber'] = $postsNumber;
         echo json_encode($result);
@@ -35,7 +39,7 @@ function main()
         if (!isset($_SESSION['postsNumber'])) {
             include_once '../app/Chat.php';
             $chat = new Chat();
-            $_SESSION['postsNumber'] = sizeof($chat->logs);
+            $_SESSION['postsNumber'] = sizeof($chat->messages);
         }
         $lastPostsNumber = $_POST['pull-new'];
         if ($_SESSION['postsNumber'] === $lastPostsNumber) {
@@ -44,7 +48,7 @@ function main()
         include_once '../app/Chat.php';
         $chat = new Chat();
         $result = $chat->pullNewPosts($lastPostsNumber);
-        array_unshift($result, sizeof($chat->logs));
+        array_unshift($result, sizeof($chat->messages));
         echo json_encode($result);
         return true;
     }
@@ -112,4 +116,3 @@ function checkInput($name, $pass)
     }
     return $result;
 }
-

@@ -3,11 +3,11 @@ const chat = {
     /* The current user's name */
     userName: '',
     /* The period of update. */
-    UPDATE_TERM: 1000,
+    UPDATE_TERM: 2000,
     /* The period of update at active chatting. */
-    UPDATE_QUICKLY_TERM: 100,
+    UPDATE_QUICKLY_TERM: 200,
     /* The number of quick updates after a new message was published. */
-    DEFAULT_QUICK_UPDATES: 600,
+    DEFAULT_QUICK_UPDATES: 500,
     quickUpdatesCounter: this.DEFAULT_QUICK_UPDATES,
     /* The number of posts in database.Needed for pulling only new posts at updates. */
     postNumber: 0,
