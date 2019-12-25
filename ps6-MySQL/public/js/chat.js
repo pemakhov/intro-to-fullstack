@@ -5,12 +5,12 @@ const chat = {
     /* The period of update. */
     UPDATE_TERM: 2000,
     /* The period of update at active chatting. */
-    UPDATE_QUICKLY_TERM: 200,
+    UPDATE_QUICKLY_TERM: 500,
     /* The number of quick updates after a new message was published. */
     DEFAULT_QUICK_UPDATES: 500,
     quickUpdatesCounter: this.DEFAULT_QUICK_UPDATES,
     /* The number of posts in database.Needed for pulling only new posts at updates. */
-    postNumber: 0,
+    lastPostTime: 0,
     /* The array of pulled posts to be published. */
     posts: [],
     /* The sound to play at sending the post. */
@@ -25,33 +25,24 @@ const chat = {
     },
 
     /* Pulls the array with new number of posts in
-     * first cell and posts within last hour.
-     */
-    pullRecentPosts() {
-        const that = this;
-        $.post('index.php', 'pull-recent', function (result) {
-            result = JSON.parse(result);
-            that.postNumber = result.shift();
-            that.posts = result;
-        });
-    },
-
-    /* Pulls the array with new number of posts in
      * first cell and new posts.
      */
-    pullNewPosts(postNumber) {
+    pullNewPosts(lastPostTime) {
         const that = this;
-        $.post('index.php', {'pull-new': postNumber}, function (result) {
-            result = JSON.parse(result);
-            if (result[0] === that.postNumber) {
+        $.post('index.php', {'pull-new': lastPostTime}, function (result) {
+            if (!result) {
                 return;
             }
-            that.postNumber = result.shift();
+            result = JSON.parse(result);
+            if (result[0] === that.lastPostTime) {
+                return;
+            }
+            that.lastPostTime = result.shift();
             that.posts = result;
         });
     },
 
-    /* Publish pulled posts into the chat window. */
+    /* Publishes pulled posts into the chat window. */
     publishPosts() {
         if (!this.posts.length) {
             return;
@@ -89,7 +80,7 @@ const chat = {
 
     /* Checks the server for new posts. */
     updateChat() {
-        this.pullNewPosts(this.postNumber);
+        this.pullNewPosts(this.lastPostTime);
         if (this.posts.length > 0) {
             this.publishPosts();
             this.quickUpdatesCounter = this.DEFAULT_QUICK_UPDATES;
@@ -157,7 +148,6 @@ const listenSubmitWithEnter = () => {
 };
 
 chat.getUserName();
-chat.pullRecentPosts();
 chat.updateChat();
 listenLogOut();
 listenChatSubmit();

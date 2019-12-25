@@ -1,65 +1,42 @@
 <?php
 
- /* The class managing users */
+/* The class managing users */
+include_once 'DBManager.php';
 
-class UserManager
+class UserManager extends DBManager
 {
-    /* The directory path where users data is stored */
-    const FILE_PATH = '../data/users.json';
-
     /* Indicates that user name is ready for usage */
     public $isReady = false;
+    private $userExists = true;
+    private $correctPassword = true;
+    private $conn;
 
-    function __construct($name, $pass)
+    public function __construct($name, $pass)
     {
-        if (filesize(self::FILE_PATH) > 0) {
-            $dataBase = $this->getDataBase();
-            $user = $this->getUser($name, $dataBase);
-            if ($user !== null) {
-                $this->isReady = $user['pass'] === $pass;
-                return;
-            }
-            $this->isReady = true;
-            $this->appendUser($dataBase, array('name' => $name, 'pass' => $pass));
-            return;
+        $this->conn = $this->makeDBConnection();
+        $this->checkUser($name, $pass);
+        if (!$this->userExists) {
+            $this->appendUser($name, $pass);
         }
-        $this->appendUser(array(), array('name' => $name, 'pass' => $pass));
-        $this->isReady = true;
+        $this->isReady = $this->correctPassword;
+        $this->conn->close();
     }
 
-    /* Opens file for reading, reads, decodes and returns json */
-    function getDataBase()
+    function checkUser($name, $pass)
     {
-        $file = fopen(self::FILE_PATH, 'r') or die('Unable to open file.');
-        $txt = fread($file, filesize(self::FILE_PATH));
-        fclose($file);
-        return json_decode($txt, true);
-    }
-
-    /* Finds and returns a user by name. Returns null if found nothing */
-    function getUser($name, $data)
-    {
-        foreach ($data as $obj) {
-            if ($obj['name'] === $name) {
-                return $obj;
-            }
+        $sql = "SELECT password FROM users WHERE name = '" . $name . "'";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows === 0) {
+            $this->userExists = false;
+        } else {
+            $this->correctPassword = mysqli_fetch_assoc($result)['password'] === $pass;
         }
-        return null;
     }
 
-    /* Appends user info into database array */
-    function appendUser($dataBase, $user)
+    /* Appends user info into database */
+    function appendUser($name, $pass)
     {
-        array_push($dataBase, $user);
-        $this->writeToFile(json_encode($dataBase));
-    }
-
-
-    /* Opens file for writing, replaces its content */
-    function writeToFile($dataBase)
-    {
-        $file = fopen(self::FILE_PATH, 'w') or die('Unable to open file.');
-        fwrite($file, $dataBase);
-        fclose($file);
+        $sql = "INSERT INTO users (name, password) VALUES ('" . $name . "', '" . $pass . "')";
+        $this->conn->query($sql);
     }
 }

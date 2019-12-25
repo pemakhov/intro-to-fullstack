@@ -1,54 +1,46 @@
 <?php
+
 session_start();
 main();
+
 
 /* Processes requests from user or returns the page. */
 function main()
 {
-
     if (isset($_POST['get-name'])) {
         echo $_SESSION['userName'];
         return true;
     }
 
     if (isset($_POST['message'])) {
-        if (!isset($_SESSION['userName']) || count($_SESSION['userName']) < 1) {
+
+        if (!isset($_SESSION['userName']) || strlen($_SESSION['userName']) < 1) {
             /* This is a protection from posting by unauthenticated users */
             return false;
         }
         include_once '../app/Chat.php';
         $chat = new Chat();
-        $chat->addMessage($_POST);
-        $chat->saveMessages();
-        $_SESSION['postsNumber']++;
-        return true;
-    }
-
-    if (isset($_POST['pull-recent'])) {
-        include_once '../app/Chat.php';
-        $chat = new Chat();
-        $result = $chat->pullRecentPosts();
-        $postsNumber = sizeof($chat->messages);
-        array_unshift($result, $postsNumber);
-        $_SESSION['postsNumber'] = $postsNumber;
-        echo json_encode($result);
+        $message = $chat->prepareMessage($_POST);
+        $chat->addMessage($message);
+        $chat->conn->close();
+        $_SESSION['lastPostTime'] = $message['time'];
         return true;
     }
 
     if (isset($_POST['pull-new'])) {
-        if (!isset($_SESSION['postsNumber'])) {
-            include_once '../app/Chat.php';
-            $chat = new Chat();
-            $_SESSION['postsNumber'] = sizeof($chat->messages);
+        if (!isset($_SESSION['lastPostTime'])) {
+            $_SESSION['lastPostTime'] = 0;
         }
-        $lastPostsNumber = $_POST['pull-new'];
-        if ($_SESSION['postsNumber'] === $lastPostsNumber) {
-            return true;
-        }
+        $lastPostTime = $_POST['pull-new'];
         include_once '../app/Chat.php';
         $chat = new Chat();
-        $result = $chat->pullNewPosts($lastPostsNumber);
-        array_unshift($result, sizeof($chat->messages));
+        $result = $chat->pullNewPosts($lastPostTime);
+        $chat->conn->close();
+        if (!$result) {
+            return false;
+        }
+        $_SESSION['lastPostTime'] = end($result)['time'];
+        array_unshift($result, $_SESSION['lastPostTime']);
         echo json_encode($result);
         return true;
     }
@@ -66,12 +58,6 @@ function main()
         $result = json_encode($result);
         echo $result;
         return $result;
-    }
-
-    if (isset($_POST['newWindow'])) {
-        $chat = new Chat();
-        echo $chat->pullRecentPosts();
-        return true;
     }
 
     return include_once 'content/main.php';

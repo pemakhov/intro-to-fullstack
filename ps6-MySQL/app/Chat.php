@@ -1,56 +1,61 @@
 <?php
 
-class Chat
+include_once 'DBManager.php';
+
+class Chat extends DBManager
 {
-    /* Messages database file path. */
-    const FILE_PATH = '../data/messages.json';
     /* The period of time in milliseconds to withdraw posts. */
     const RECENT_PERIOD = 3600000;
-    /* The database of posts. */
-    public $messages;
+
+    /* The database connection */
+    public $conn;
 
     function __construct()
     {
-        $this->messages = $this->getMessages();
+        $this->conn = $this->makeDBConnection();
     }
 
-    /* Returns the recent posts or the empty array. */
-    public function pullRecentPosts()
+    /* Returns the new posts (newer than the $lastPostTime). */
+    public function pullNewPosts($lastPostTime)
     {
-        $timeBorder = round(microtime(true) * 1000) - self::RECENT_PERIOD;
-        $result = array_filter($this->messages, function ($record) use ($timeBorder) {
-            return $record['time'] > $timeBorder;
-        });
-        return empty($result) ? [] : $result;
-    }
-
-    /* Returns the new posts (newer than the $lastPostNumber). */
-    public function pullNewPosts($lastPostsNumber)
-    {
-        return array_slice($this->messages, $lastPostsNumber);
-    }
-
-    /* Returns the posts from the database file. */
-    private function getMessages()
-    {
-        if (filesize(self::FILE_PATH) === 0) {
-            return array();
+        if (intval($lastPostTime) === 0) {
+            $lastPostTime = round(microtime(true) * 1000) - self::RECENT_PERIOD;
         }
-        return json_decode(file_get_contents(self::FILE_PATH), true);
+        $sql = "SELECT time, author, message 
+                FROM messages 
+                WHERE time > " . $lastPostTime;
+
+        return $this->sqlResultToArray($this->conn->query($sql));
     }
 
-    /* Adds a new post into messages */
-    public function addMessage($newMessage)
+    /* Removes html tags from the message */
+    public function prepareMessage($newMessage)
     {
-        $newMessage['message'] = strip_tags($newMessage['message']);
-        array_push($this->messages, $newMessage);
+        $newMessage['message'] = addslashes(strip_tags($newMessage['message']));
+        return $newMessage;
     }
 
     /* Saves messages into file. */
-    public function saveMessages()
+    public function addMessage($message)
     {
-        $file = fopen(self::FILE_PATH, 'w') or die('Unable to open file.');
-        fwrite($file, json_encode($this->messages));
-        fclose($file);
+        $sql = "INSERT INTO messages (time, author, message)
+                VALUES ('" . $message['time'] . "', 
+                '" . $message['author'] . "', 
+                '" . $message['message'] . "')";
+
+        if ($this->conn->query($sql) === TRUE) {
+            return true;
+        }
+        return false;
+    }
+
+    /* Makes and returns the array from an sql result */
+    private function sqlResultToArray($sqlResult)
+    {
+        $result = array();
+        while ($r = mysqli_fetch_assoc($sqlResult)) {
+            $result[] = $r;
+        }
+        return $result;
     }
 }
