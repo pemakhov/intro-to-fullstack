@@ -29,14 +29,15 @@ class UserManager extends DBManager
         if ($result->num_rows === 0) {
             $this->userExists = false;
         } else {
-            $this->correctPassword = mysqli_fetch_assoc($result)['password'] === $pass;
+            $this->correctPassword = password_verify($pass, mysqli_fetch_assoc($result)['password']);
         }
     }
 
     /* Appends user info into database */
     function appendUser($name, $pass)
     {
-        $sql = "INSERT INTO users (name, password) VALUES ('" . $name . "', '" . $pass . "')";
+        $hash = password_hash($pass, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO users (name, password) VALUES ('" . $name . "', '" . $hash . "')";
         $this->conn->query($sql);
     }
 }

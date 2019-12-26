@@ -33,7 +33,7 @@ if ($conn->connect_error) {
 $sql = 'CREATE TABLE users (
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(30) NOT NULL,
-password VARCHAR(30)
+password VARCHAR(256)
 )';
 
 if ($conn->query($sql) === TRUE) {
