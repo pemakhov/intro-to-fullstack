@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #454545;
+}
+
+main {
+    display: inline-block;
+    margin: 0;
+    background-image: url("../img/bg.jpg");
+    background-repeat: no-repeat;
+    z-index: -10;
+}
+
+.hidden {
+    visibility: hidden;
+    z-index: -10;
+}
+
+.balloon {
+    position: absolute;
+    z-index: 9;
+    background-color: #fdfdfd;
+    border-radius: 10px;
+    text-align: center;
+    padding: 20px;
+    max-width: 250px;
+}
+
+.balloon:hover {
+    cursor: move;
+}
+
+.balloon:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 15px;
+    border-width: 10px 10px 0;
+    display: block;
+    border-style: solid;
+    border-color: #fdfdfd transparent;
+    width: 0;
+}
+
+.
+
