@@ -86,8 +86,12 @@ function checkInput($name, $pass)
         $result[1] = 'Max length of password is ' . MAX_LENGTH . ' symbols';
         $correctInput = false;
     }
+    if (!preg_match('/^\w+$/', $name)) {
+        $result[0] = 'Only alphanumeric names are allowed';
+        $correctInput = false;
+    }
     if ($name != strip_tags($name)) {
-        $result[1] = 'HTML tags are not allowed';
+        $result[0] = 'HTML tags are not allowed';
         $correctInput = false;
     }
     if ($correctInput) {

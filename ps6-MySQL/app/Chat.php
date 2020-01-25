@@ -6,6 +6,7 @@ class Chat extends DBManager
 {
     /* The period of time in milliseconds to withdraw posts. */
     const RECENT_PERIOD = 3600000;
+    const MILLISECONDS_IN_SECOND = 1000;
 
     /* The database connection */
     public $conn;
@@ -19,7 +20,7 @@ class Chat extends DBManager
     public function pullNewPosts($lastPostTime)
     {
         if (intval($lastPostTime) === 0) {
-            $lastPostTime = round(microtime(true) * 1000) - self::RECENT_PERIOD;
+            $lastPostTime = round(microtime(true) * self::MILLISECONDS_IN_SECOND) - self::RECENT_PERIOD;
         }
         $sql = "SELECT time, author, message 
                 FROM messages 
