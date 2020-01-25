@@ -7,7 +7,7 @@ const chat = {
     /* The period of update at active chatting. */
     UPDATE_QUICKLY_TERM: 500,
     /* The number of quick updates after a new message was published. */
-    DEFAULT_QUICK_UPDATES: 500,
+    DEFAULT_QUICK_UPDATES: 120,
     quickUpdatesCounter: this.DEFAULT_QUICK_UPDATES,
     /* The number of posts in database.Needed for pulling only new posts at updates. */
     lastPostTime: 0,
