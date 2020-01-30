@@ -31,9 +31,6 @@ const handleDblClick = (e) => {
         balloon.classList.add('active');
         balloon.id = 'b' + balloonIdNumber++;
 
-        // add the text node to the newly created div
-        balloon.appendChild(createTextInput());
-
         // add the newly created element and its content into the DOM
         const main = document.getElementById('main');
         main.appendChild(balloon);
@@ -41,8 +38,11 @@ const handleDblClick = (e) => {
         balloon.style.left = (x) + 'px';
         balloon.style.top = (y) + 'px';
 
+        // add the text node to the newly created div
+        balloon.appendChild(createTextInput());
+        document.getElementById('activeInput').focus();
+        $('.balloon').draggable();
         addListeners(balloon);
-        dragElement(balloon);
     }
 
     function editContent(e) {
@@ -53,6 +53,7 @@ const handleDblClick = (e) => {
         balloon.innerHTML = '';
         balloon.classList.add('active');
         balloon.appendChild(textInput);
+        document.getElementById('activeInput').focus();
         addListeners(balloon, text);
     }
 
@@ -60,49 +61,7 @@ const handleDblClick = (e) => {
         const textInput = document.createElement('input');
         textInput.id = 'activeInput';
         textInput.type = 'text';
-        textInput.autofocus = true;
         return textInput;
-    }
-};
-
-const dragElement = (element) => {
-    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    element.onmousedown = dragMouseDown;
-
-    function dragMouseDown(e) {
-        if (element.classList.contains('active')) {
-            return;
-        }
-        e = e || window.event;
-        e.preventDefault();
-        // get the mouse cursor position at startup:
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        // call a function whenever the cursor moves:
-        document.onmousemove = elementDrag;
-    }
-
-    function elementDrag(e) {
-        e.preventDefault();
-        // calculate the new cursor position:
-        pos1 = pos3 - e.clientX;
-        pos2 = pos4 - e.clientY;
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        const x = element.offsetLeft - pos1;
-        const y = element.offsetTop - pos2;
-        const pos = getAdjustedPosition(x, y, element.clientWidth, element.clientHeight);
-        // set the element's new position:
-        element.style.left = (pos.x) + 'px';
-        element.style.top = (pos.y) + 'px';
-    }
-
-    function closeDragElement() {
-        // stop moving when mouse button is released:
-        document.onmouseup = null;
-        document.onmousemove = null;
-        saveElement(element);
     }
 };
 
@@ -110,7 +69,7 @@ const BALLOON_DEFAULT_WIDTH = 220;
 const BALLOON_DEFAULT_HEIGHT = 70;
 
 const getAdjustedPosition = (x, y, elementWidth = BALLOON_DEFAULT_WIDTH,
-                             elementHeight = BALLOON_DEFAULT_HEIGHT) => {
+    elementHeight = BALLOON_DEFAULT_HEIGHT) => {
     /* Balloon pointer height in pixels */
     const POINTER_HEIGHT = 15;
     const container = document.getElementById('main');
@@ -121,13 +80,10 @@ const getAdjustedPosition = (x, y, elementWidth = BALLOON_DEFAULT_WIDTH,
     let y1 = (y < 0) ? 0 : y;
     x1 = (x + elementWidth > containerWidth) ? containerWidth - elementWidth : x1;
     y1 = (y + elementHeight > containerHeight) ? containerHeight - elementHeight : y1;
-    return {'x': x1, 'y': y1};
+    return { 'x': x1, 'y': y1 };
 };
 
 const addListeners = (element, initialText = null) => {
-    /* At removing div's content js fires blur, therefore event handler executes twice,
-     * the second time with a warning.
-     */
     let removed = false;
     element.addEventListener('keyup', handleEvent);
     element.addEventListener('focusout', handleEvent);
@@ -168,6 +124,7 @@ const pullBalloons = () => {
         result.forEach(element => {
             main.appendChild(prepareElement(element))
         });
+        dragElement()
     });
 
     const prepareElement = (element) => {
@@ -178,7 +135,6 @@ const pullBalloons = () => {
         balloon.style.left = element.left;
         balloon.style.top = element.top;
         balloon.classList.add('balloon');
-        dragElement(balloon);
         return balloon;
     };
 
@@ -190,6 +146,17 @@ const pullBalloons = () => {
             }
         });
     }
+};
+
+const dragElement = () => {
+    $element = $('.balloon')
+    $element.draggable({
+        containment: 'parent',
+        stop: function (event, ui) {
+            console.log(event);
+            saveElement(event.target);
+        }
+    });
 };
 
 const saveElement = (element, remove = false) => {
