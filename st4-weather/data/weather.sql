@@ -1,0 +1,84 @@
+-- phpMyAdmin SQL Dump
+-- version 4.6.6deb5
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Feb 02, 2020 at 10:04 PM
+-- Server version: 5.7.29-0ubuntu0.18.04.1
+-- PHP Version: 7.2.24-0ubuntu0.18.04.2
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `weather`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `forecast`
+--
+
+CREATE TABLE `forecast` (
+  `id` int(11) NOT NULL,
+  `dt` int(32) NOT NULL,
+  `temp` float NOT NULL,
+  `icon` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `forecast`
+--
+
+INSERT INTO `forecast` (`id`, `dt`, `temp`, `icon`) VALUES
+(0, 1580677200, 279.49, '10n'),
+(1, 1580688000, 277.83, '04n'),
+(2, 1580698800, 276.93, '04n'),
+(3, 1580709600, 277.12, '10d'),
+(4, 1580720400, 277.45, '10d'),
+(5, 1580731200, 277.02, '10d'),
+(6, 1580742000, 277.07, '04n'),
+(7, 1580752800, 275.64, '04n'),
+(8, 1580763600, 274.65, '04n'),
+(9, 1580774400, 273.1, '04n'),
+(10, 1580785200, 272.62, '04n'),
+(11, 1580796000, 272.62, '03d'),
+(12, 1580806800, 276.06, '01d'),
+(13, 1580817600, 277.23, '02d'),
+(14, 1580828400, 276.27, '04n'),
+(15, 1580839200, 275.79, '04n'),
+(16, 1580850000, 276.7, '04n'),
+(17, 1580860800, 276.35, '10n'),
+(18, 1580871600, 276.39, '10n'),
+(19, 1580882400, 276.82, '10d'),
+(20, 1580893200, 277.63, '10d'),
+(21, 1580904000, 277.6, '10d'),
+(22, 1580914800, 276.38, '10n'),
+(23, 1580925600, 273.72, '13n'),
+(24, 1580936400, 271.9, '13n'),
+(25, 1580947200, 270.26, '13n'),
+(26, 1580958000, 269.59, '13n'),
+(27, 1580968800, 269.71, '04d'),
+(28, 1580979600, 270.65, '04d'),
+(29, 1580990400, 271.5, '04d'),
+(30, 1581001200, 270.41, '04n'),
+(31, 1581012000, 269.66, '04n'),
+(32, 1581022800, 269.49, '02n'),
+(33, 1581033600, 270, '01n'),
+(34, 1581044400, 271.78, '13n'),
+(35, 1581055200, 272.66, '13d'),
+(36, 1581066000, 273.16, '13d'),
+(37, 1581076800, 269.38, '13d'),
+(38, 1581087600, 267.65, '03n'),
+(39, 1581098400, 267.76, '02n');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
