@@ -8,10 +8,14 @@ class DataProcessor
     private $data;
     private $today;
 
-    function __construct($data)
+    function __construct()
+    {
+        $this->today = time();
+    }
+
+    public function setData($data)
     {
         $this->data = $data;
-        $this->today = time();
     }
 
     /* Gets needed records */
