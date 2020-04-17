@@ -7,7 +7,7 @@ const classNames = [
 ];
 
 /* Creates html for differently colored stripe */
-getSpectrum = () => {
+const getSpectrum = () => {
     function reducer(acc, cur) {
         return acc + cur;
     }

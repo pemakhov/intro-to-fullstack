@@ -5,6 +5,5 @@
     <input type="submit" class="chat__submit" value="Send">
 </div>
 <script>
-    url = 'js/chat.js';
-    $.getScript(url);
+    $.getScript('js/chat.js');
 </script>
